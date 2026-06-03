@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri Lanka & Maldiverne 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sand: #f5f0e8;
+    --sand-dark: #e8e0d0;
+    --ink: #1a1714;
+    --ink-mid: #4a4540;
+    --ink-light: #8a8078;
+    --teal: #1d6e5a;
+    --teal-light: #e4f0ec;
+    --teal-mid: #2d9070;
+    --amber: #c47d2a;
+    --amber-light: #fdf3e3;
+    --red: #c0392b;
+    --red-light: #fdf0ee;
+    --green-light: #eaf5f0;
+    --green: #1a6b45;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem 2rem 4rem;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, #1d6e5a22 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, #c47d2a18 0%, transparent 45%),
+      radial-gradient(circle at 60% 80%, #1d6e5a15 0%, transparent 40%);
+  }
+
+  .hero-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, #ffffff06 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 8vw, 5.5rem);
+    font-weight: 400;
+    color: #f5f0e8;
+    line-height: 1.05;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--teal-mid);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: #a09888;
+    font-weight: 300;
+    margin-bottom: 2.5rem;
+    max-width: 460px;
+  }
+
+  .hero-dates {
+    display: flex; gap: 2rem; flex-wrap: wrap;
+  }
+
+  .hero-date-item {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+
+  .hero-date-label {
+    font-size: 10px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #6a6058;
+    font-weight: 500;
+  }
+
+  .hero-date-val {
+    font-size: 15px;
+    color: #d4ccc0;
+    font-weight: 400;
+  }
+
+  .scroll-hint {
+    position: absolute; bottom: 1.5rem; right: 2rem;
+    font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+    color: #5a5248;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .scroll-hint::after {
+    content: '';
+    display: block;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, #5a5248, transparent);
+  }
+
+  /* SECTIONS */
+  section { padding: 4rem 2rem; }
+  .container { max-width: 720px; margin: 0 auto; }
+
+  .section-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: .6rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  .section-intro {
+    font-size: 1rem;
+    color: var(--ink-mid);
+    max-width: 540px;
+    margin-bottom: 2.5rem;
+    line-height: 1.75;
+  }
+
+  /* STATUS SECTION */
+  .status-section { background: white; }
+
+  .booked-grid {
+    display: grid;
+    gap: 1px;
+    background: var(--sand-dark);
+    border: 1px solid var(--sand-dark);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .booked-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem;
+    padding: .9rem 1.2rem;
+    background: white;
+  }
+
+  .booked-row:first-child { border-radius: 12px 12px 0 0; }
+  .booked-row:last-child { border-radius: 0 0 12px 12px; }
+
+  .booked-what { font-size: 14px; font-weight: 400; color: var(--ink); }
+  .booked-when { font-size: 12px; color: var(--ink-light); margin-top: 2px; }
+
+  .booked-ref {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    color: var(--green);
+    background: var(--green-light);
+    padding: 3px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+  }
+
+  /* NOTE BOX */
+  .note-box {
+    background: var(--amber-light);
+    border-left: 3px solid var(--amber);
+    border-radius: 0 8px 8px 0;
+    padding: .9rem 1.1rem;
+    font-size: 13px;
+    color: var(--ink-mid);
+    margin-top: 1.2rem;
+    line-height: 1.6;
+  }
+
+  /* TIMELINE */
+  .route-section { background: var(--sand); }
+
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+
+  .tl-item {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 0;
+    position: relative;
+  }
+
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: 36px;
+    top: 36px;
+    bottom: -1px;
+    width: 1px;
+    background: var(--sand-dark);
+  }
+
+  .tl-item:last-child::before { display: none; }
+
+  .tl-left {
+    padding: .6rem 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .tl-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    border: 2px solid var(--ink-light);
+    background: var(--sand);
+    margin-bottom: 4px;
+    flex-shrink: 0;
+  }
+
+  .tl-dot.booked { border-color: var(--teal); background: var(--teal); }
+  .tl-dot.wow { border-color: var(--amber); background: var(--amber); }
+  .tl-dot.pending { border-color: var(--ink-light); background: white; }
+
+  .tl-dates {
+    font-size: 10px;
+    color: var(--ink-light);
+    text-align: center;
+    letter-spacing: .02em;
+    line-height: 1.3;
+  }
+
+  .tl-right {
+    padding: 6px 0 24px 20px;
+  }
+
+  .tl-nights {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin-bottom: 4px;
+  }
+
+  .tl-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 4px;
+    line-height: 1.2;
+  }
+
+  .tl-desc {
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.55;
+  }
+
+  .tl-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    padding: 2px 7px;
+    border-radius: 10px;
+    margin-top: 5px;
+    letter-spacing: .04em;
+  }
+
+  .tag-booked { background: var(--green-light); color: var(--green); }
+  .tag-wow { background: var(--amber-light); color: var(--amber); }
+  .tag-open { background: var(--sand-dark); color: var(--ink-light); }
+  .tag-fly { background: #e8f0fb; color: #1a4d9a; }
+
+  /* DECISION SECTION */
+  .decision-section { background: white; }
+
+  .scenario-cards { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .sc-card {
+    border: 1px solid var(--sand-dark);
+    border-radius: 14px;
+    overflow: hidden;
+  }
+
+  .sc-card.recommended { border-color: var(--teal); border-width: 2px; }
+
+  .sc-head {
+    padding: 1.1rem 1.3rem .8rem;
+    border-bottom: 1px solid var(--sand-dark);
+    display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem;
+  }
+
+  .sc-card.recommended .sc-head { background: var(--teal-light); border-bottom-color: #c0dcd5; }
+
+  .sc-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--ink);
+  }
+
+  .sc-pill {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .sc-pill.rec { background: var(--teal); color: white; }
+  .sc-pill.alt { background: var(--sand-dark); color: var(--ink-mid); }
+  .sc-pill.bold { background: var(--amber-light); color: var(--amber); }
+
+  .sc-body { padding: 1.1rem 1.3rem; }
+
+  .sc-days { display: flex; flex-direction: column; gap: 4px; margin-bottom: 1rem; }
+
+  .sc-day {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 8px;
+    align-items: baseline;
+    font-size: 13px;
+  }
+
+  .sc-day-date { color: var(--ink-light); font-size: 12px; white-space: nowrap; }
+  .sc-day-desc { color: var(--ink-mid); line-height: 1.5; }
+  .sc-day-desc strong { color: var(--ink); font-weight: 500; }
+  .sc-day-desc em { color: var(--amber); font-style: normal; font-weight: 500; }
+
+  .sc-pros-cons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: .8rem;
+  }
+
+  @media (max-width: 500px) { .sc-pros-cons { grid-template-columns: 1fr; } }
+
+  .sc-pro, .sc-con {
+    font-size: 12px;
+    padding: .65rem .85rem;
+    border-radius: 8px;
+    line-height: 1.55;
+  }
+
+  .sc-pro { background: var(--green-light); color: #1a5038; }
+  .sc-con { background: var(--red-light); color: #7a2828; }
+
+  .sc-pro::before { content: '+ '; font-weight: 500; }
+  .sc-con::before { content: '− '; font-weight: 500; }
+
+  /* HOTELS */
+  .hotels-section { background: var(--sand); }
+
+  .hotel-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .hotel-card {
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-radius: 12px;
+    padding: 1.2rem;
+  }
+
+  .hotel-card.top-pick { border-color: var(--teal); border-width: 2px; }
+
+  .hotel-badge {
+    font-size: 10px; font-weight: 500;
+    letter-spacing: .08em; text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  .hotel-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .hotel-location {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: .7rem;
+  }
+
+  .hotel-desc {
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+    margin-bottom: .8rem;
+  }
+
+  .hotel-price {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--teal);
+  }
+
+  .hotel-price span {
+    font-size: 11px;
+    font-weight: 300;
+    color: var(--ink-light);
+  }
+
+  /* CHECKLIST */
+  .checklist-section { background: white; }
+
+  .check-items { display: flex; flex-direction: column; gap: 2px; }
+
+  .check-item {
+    display: grid;
+    grid-template-columns: 28px 1fr auto;
+    align-items: center;
+    gap: .75rem;
+    padding: .75rem 0;
+    border-bottom: 1px solid var(--sand-dark);
+    font-size: 14px;
+  }
+
+  .check-item:last-child { border-bottom: none; }
+
+  .check-icon {
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    flex-shrink: 0;
+  }
+
+  .ci-done { background: var(--green-light); color: var(--green); }
+  .ci-now { background: var(--red-light); color: var(--red); }
+  .ci-soon { background: var(--amber-light); color: var(--amber); }
+  .ci-later { background: var(--sand-dark); color: var(--ink-light); }
+
+  .check-what { color: var(--ink); }
+  .check-when { font-size: 12px; color: var(--ink-light); white-space: nowrap; }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: #6a6058;
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 13px;
+  }
+
+  footer em { font-style: normal; color: var(--teal-mid); }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    section { padding: 3rem 1.2rem; }
+    .hero { padding: 2rem 1.2rem 3rem; }
+    .sc-pros-cons { grid-template-columns: 1fr; }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-content > * {
+    animation: fadeUp .7s ease both;
+  }
+  .hero-eyebrow { animation-delay: .1s; }
+  .hero h1 { animation-delay: .2s; }
+  .hero-sub { animation-delay: .35s; }
+  .hero-dates { animation-delay: .5s; }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Familie Andersen · Sommer 2026</div>
+    <h1>Sri Lanka<br>& <em>Maldiverne</em></h1>
+    <p class="hero-sub">22 dage med natur, kultur, hvalsafari, teplantager, safari og strand. Her er hvad vi ved — og hvad vi mangler at beslutte.</p>
+    <div class="hero-dates">
+      <div class="hero-date-item">
+        <span class="hero-date-label">Afrejse</span>
+        <span class="hero-date-val">29. juni 2026</span>
+      </div>
+      <div class="hero-date-item">
+        <span class="hero-date-label">Hjemkomst</span>
+        <span class="hero-date-val">22. juli 2026</span>
+      </div>
+      <div class="hero-date-item">
+        <span class="hero-date-label">Familie</span>
+        <span class="hero-date-val">Søren, Susanne, Asta & Nana</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</div>
+
+<!-- BOOKED -->
+<section class="status-section">
+  <div class="container">
+    <div class="section-label">Allerede på plads</div>
+    <h2 class="section-title">Det er booket</h2>
+    <p class="section-intro">Fly, tog og de to store oplevelser er sikret. Grundskellettet er solidt.</p>
+
+    <div class="booked-grid">
+      <div class="booked-row">
+        <div>
+          <div class="booked-what">Fly København → Colombo</div>
+          <div class="booked-when">29–30. juni · via London & Mumbai · Air India</div>
+        </div>
+        <div class="booked-ref">9RC7C2</div>
+      </div>
+      <div class="booked-row">
+        <div>
+          <div class="booked-what">Ankomstnat — Mango House, Negombo</div>
+          <div class="booked-when">30. juni → 1. juli · morgenmad inkluderet · $85</div>
+        </div>
+        <div class="booked-ref">6099372738</div>
+      </div>
+      <div class="booked-row">
+        <div>
+          <div class="booked-what">Tog Nanuoya → Ella · 1. klasse</div>
+          <div class="booked-when">10. juli kl. 12:30 → 15:00 · 4 pax · €90</div>
+        </div>
+        <div class="booked-ref">BW5210598</div>
+      </div>
+      <div class="booked-row">
+        <div>
+          <div class="booked-what">Mahoora Yala Safari Teltcamp</div>
+          <div class="booked-when">12–14. juli · 2 nætter · all-inclusive + privat jeep · $1.599</div>
+        </div>
+        <div class="booked-ref">GF4NRG</div>
+      </div>
+      <div class="booked-row">
+        <div>
+          <div class="booked-what">Fly Colombo → Malé</div>
+          <div class="booked-when">16. juli kl. 15:00 · FitsAir direkte · 1t 30m</div>
+        </div>
+        <div class="booked-ref">ZCAEEB</div>
+      </div>
+      <div class="booked-row">
+        <div>
+          <div class="booked-what">Arrival Beach & Spa, Gulhi — Maldiverne</div>
+          <div class="booked-when">16–21. juli · 5 nætter · familieværelse · DKK 9.260</div>
+        </div>
+        <div class="booked-ref">72070784101136</div>
+      </div>
+      <div class="booked-row">
+        <div>
+          <div class="booked-what">Fly Malé → København</div>
+          <div class="booked-when">21–22. juli · IndiGo · 23 timer · DKK 11.118</div>
+        </div>
+        <div class="booked-ref">XEYKYX</div>
+      </div>
+    </div>
+
+    <div class="note-box">
+      Togbilletten er registreret "awaiting confirmation" — det er normalt for Sri Lanka Railways. Billetten udstedes tæt på afrejse, og leverandøren kontakter os på WhatsApp.
+    </div>
+  </div>
+</section>
+
+<!-- ROUTE -->
+<section class="route-section">
+  <div class="container">
+    <div class="section-label">Ruten</div>
+    <h2 class="section-title">22 dage — stop for stop</h2>
+    <p class="section-intro">Fra ankomst i Colombo til hjemflyvning fra Malé. Det grønne er booket, det amber er "wow-stop", det hvide mangler stadig booking.</p>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot booked"></div><div class="tl-dates">29/6</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">Fly</span>
+          <div class="tl-name">København → Colombo</div>
+          <div class="tl-desc">Afgang 16:45 fra CPH. Via London og Mumbai. Ankomst Colombo 30/6 kl. 15:00.</div>
+          <span class="tl-tag tag-fly">Booket</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot booked"></div><div class="tl-dates">30/6–1/7</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">1 nat</span>
+          <div class="tl-name">Negombo</div>
+          <div class="tl-desc">Mango House Japanese Guest House. Charm, pool, tæt på lufthavnen. Blødt landing efter lang rejse. Morgenmad inkluderet.</div>
+          <span class="tl-tag tag-booked">Booket</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot pending"></div><div class="tl-dates">1–4/7</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">3 nætter</span>
+          <div class="tl-name">Sigiriya & Habarana</div>
+          <div class="tl-desc">Kulturtrekanten. Sigiriya-klippen (UNESCO), Dambulla-huletempel, elefantsafari i Minneriya. Jungle-lodge med pool — det er 34°C.</div>
+          <span class="tl-tag tag-open">Mangler booking</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot pending"></div><div class="tl-dates">4–7/7</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">3 nætter</span>
+          <div class="tl-name">Trincomalee & Nilaveli</div>
+          <div class="tl-desc">Østkysten og Susannes hvalsafari. Juli er peak-sæson for blåhvaler. Pigeon Island snorkling. Strandhotel tæt på vandet.</div>
+          <span class="tl-tag tag-open">Mangler booking</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot pending"></div><div class="tl-dates">7–12/7</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">5 nætter — se nedenfor</span>
+          <div class="tl-name">Kandy · Teplantage · Ella</div>
+          <div class="tl-desc">Det er her vi har et valg at træffe. Tre scenarier: se afsnittet nedenfor. Inkluderer vores planlagte togtur og wow-overnatning på teplantage.</div>
+          <span class="tl-tag tag-wow">Beslutning mangler</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot booked"></div><div class="tl-dates">12–14/7</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">2 nætter</span>
+          <div class="tl-name">Mahoora Yala Safari Teltcamp</div>
+          <div class="tl-desc">Wow-oplevelse nr. 2. Privat telt, dedikeret guide og jeep, eftermiddagssafari dag 1 og morgensafari dag 2. Leoparder, elefanter, krokodiller. Middag under stjernerne.</div>
+          <span class="tl-tag tag-booked">Booket · GF4NRG</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot pending"></div><div class="tl-dates">14–15/7</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">1 nat</span>
+          <div class="tl-name">Galle Fort</div>
+          <div class="tl-desc">Portugisisk-hollandsk fortby fra 1600-tallet. Boutique-hotel inde i murene. Cobblestone-gader, gallerier, sundowners på voldene.</div>
+          <span class="tl-tag tag-open">Mangler booking</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot pending"></div><div class="tl-dates">15–16/7</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">1 nat</span>
+          <div class="tl-name">Negombo (afrejse)</div>
+          <div class="tl-desc">Buffer-nat inden fly til Malé kl. 15:00. Pool, god søvn, ingen stress.</div>
+          <span class="tl-tag tag-open">Mangler booking</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot booked"></div><div class="tl-dates">16–21/7</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">5 nætter</span>
+          <div class="tl-name">Maldiverne — Gulhi, Kaafu Atoll</div>
+          <div class="tl-desc">Arrival Beach & Spa. Familieværelse, hvid sand, turkis vand. Check ind kl. 14:00 — kontakt hotel 48 timer før for båd/bus-transfer.</div>
+          <span class="tl-tag tag-booked">Booket</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-left"><div class="tl-dot booked"></div><div class="tl-dates">21/7</div></div>
+        <div class="tl-right">
+          <span class="tl-nights">Fly</span>
+          <div class="tl-name">Malé → København</div>
+          <div class="tl-desc">Afgang kl. 18:00. Via to stop. Ankomst CPH 22. juli kl. 14:00.</div>
+          <span class="tl-tag tag-fly">Booket · XEYKYX</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- DECISION -->
+<section class="decision-section">
+  <div class="container">
+    <div class="section-label">7–12. juli · Dit overblik</div>
+    <h2 class="section-title">Hvad tænker du?</h2>
+    <p class="section-intro">Vi har 5 dage og tre valg. Alle starter med Trincomalee og ender med toget til Ella d. 10/7 og Mahoora d. 12/7. Det er kun midten der varierer.</p>
+
+    <div class="scenario-cards">
+
+      <div class="sc-card recommended">
+        <div class="sc-head">
+          <div class="sc-name">Scenarie B — det anbefalede</div>
+          <span class="sc-pill rec">Vores favorit</span>
+        </div>
+        <div class="sc-body">
+          <div class="sc-days">
+            <div class="sc-day">
+              <span class="sc-day-date">7/7</span>
+              <span class="sc-day-desc">Kørsel Trinco → <strong>Kandy</strong> (3 timers stop: Tooth Temple, søen) → videre til teplantage. Lang dag, men Kandy er klaret.</span>
+            </div>
+            <div class="sc-day">
+              <span class="sc-day-date">7–9/7</span>
+              <span class="sc-day-desc"><em>2 nætter på teplantage</em> — te-vandring, pool med bjergpanorama, ro, solopgang over te-marker.</span>
+            </div>
+            <div class="sc-day">
+              <span class="sc-day-date">9/7</span>
+              <span class="sc-day-desc"><strong>Rafting i Kitulgala</strong> om morgenen (45 min fra teplantage) → chauffør kører til Nanuoya station kl. 12.</span>
+            </div>
+            <div class="sc-day">
+              <span class="sc-day-date">10/7</span>
+              <span class="sc-day-desc">Tog kl. 12:30 → Ella kl. 15:00. Verdens smukkeste togtur. Tjek ind, hvil.</span>
+            </div>
+            <div class="sc-day">
+              <span class="sc-day-date">10–12/7</span>
+              <span class="sc-day-desc"><strong>2 nætter Ella</strong> — Nine Arch Bridge, Little Adam's Peak, Ravana Falls.</span>
+            </div>
+          </div>
+          <div class="sc-pros-cons">
+            <div class="sc-pro">Kandy nås uden at bruge en nat på gennemrejse. Teplantagen får to rolige dage. Rafting passer perfekt ind inden toget.</div>
+            <div class="sc-con">Dag 7/7 er lang: ca. 6 timers kørsel i alt. Kræver en tidlig start fra Trincomalee.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc-card">
+        <div class="sc-head">
+          <div class="sc-name">Scenarie A — den klassiske</div>
+          <span class="sc-pill alt">Alternativ</span>
+        </div>
+        <div class="sc-body">
+          <div class="sc-days">
+            <div class="sc-day">
+              <span class="sc-day-date">7/7</span>
+              <span class="sc-day-desc">Kørsel til Kandy. <strong>1 nat i Kandy</strong> — Tooth Temple om aftenen, botanisk have om morgenen.</span>
+            </div>
+            <div class="sc-day">
+              <span class="sc-day-date">8/7</span>
+              <span class="sc-day-desc">Kandy → teplantage. <em>1–2 nætter</em> i Nuwara Eliya-området.</span>
+            </div>
+            <div class="sc-day">
+              <span class="sc-day-date">10/7</span>
+              <span class="sc-day-desc">Tog kl. 12:30 → <strong>2 nætter Ella</strong>.</span>
+            </div>
+          </div>
+          <div class="sc-pros-cons">
+            <div class="sc-pro">Kandy får en proper overnatning — du ser det hele uden stress. Mere afslappet tempo dag 7.</div>
+            <div class="sc-con">Teplantagen får kun 1 nat. Kitulgala rafting er svær at passe ind. Kandy-natten er lidt spildt logistisk.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sc-card">
+        <div class="sc-head">
+          <div class="sc-name">Scenarie C — maksimal ro</div>
+          <span class="sc-pill bold">Mindst pres</span>
+        </div>
+        <div class="sc-body">
+          <div class="sc-days">
+            <div class="sc-day">
+              <span class="sc-day-date">7/7</span>
+              <span class="sc-day-desc">Direkte til <strong>Ella</strong> via Kandy-dagsstop. Check ind på 98 Acres Resort — som ligger på en rigtig teplantage.</span>
+            </div>
+            <div class="sc-day">
+              <span class="sc-day-date">7–10/7</span>
+              <span class="sc-day-desc"><em>3 nætter 98 Acres</em> — teplantage + Nine Arch Bridge-udsigt + pool. To oplevelser i ét hotel.</span>
+            </div>
+            <div class="sc-day">
+              <span class="sc-day-date">10/7</span>
+              <span class="sc-day-desc">Tog til Ella — og skifte hotel i Ella til 2 nye nætter.</span>
+            </div>
+          </div>
+          <div class="sc-pros-cons">
+            <div class="sc-pro">Mindst kørsel og flytninger. 98 Acres kombinerer teplantage-drømmen og Ella i ét. Bedst for pigerne.</div>
+            <div class="sc-con">I rejser med toget til Ella og er allerede i Ella-området. 5 nætter samme sted kan blive for meget. Kitulgala falder ud.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- HOTELS -->
+<section class="hotels-section">
+  <div class="container">
+    <div class="section-label">Wow-overnatning</div>
+    <h2 class="section-title">Teplantage-hotel</h2>
+    <p class="section-intro">Heritance Tea Factory er desværre udsolgt. Her er alternativerne — alle indenfor 2.000 kr/nat for familien.</p>
+
+    <div class="hotel-cards">
+
+      <div class="hotel-card top-pick">
+        <span class="hotel-badge">Vores top-anbefaling</span>
+        <div class="hotel-name">Madulkelle Tea & Eco Lodge</div>
+        <div class="hotel-location">Kandy-regionen · ca. 45 min fra Kandy</div>
+        <div class="hotel-desc">Arbejdende teplantage i bjergene. Pool med panoramaudsigt over te-marker og jungle. Familievenlig, smuk, rolig. Passer perfekt i Scenarie B.</div>
+        <div class="hotel-price">ca. 1.200–1.600 kr/nat <span>for familien</span></div>
+      </div>
+
+      <div class="hotel-card top-pick">
+        <span class="hotel-badge">Kombinations-vinder</span>
+        <div class="hotel-name">98 Acres Resort & Spa</div>
+        <div class="hotel-location">Ella · direkte i teplantagen</div>
+        <div class="hotel-desc">Bor midt i en rigtig teplantage med Nine Arch Bridge-udsigt. Kombinerer teplantage-oplevelsen og Ella i ét. Passer i Scenarie C.</div>
+        <div class="hotel-price">ca. 1.000–1.500 kr/nat <span>for familien</span></div>
+      </div>
+
+      <div class="hotel-card">
+        <div class="hotel-name">Ceylon Tea Trails</div>
+        <div class="hotel-location">Bogawantalawa · søerne i bjergene</div>
+        <div class="hotel-desc">Fire koloniale bungalows fra 1920'erne. Butler, privat båd, te-vandringer. Den ultimative teplantage-oplevelse — men sandsynligvis over budget.</div>
+        <div class="hotel-price">ca. 2.000–3.000 kr/nat <span>sandsynligvis over budget</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHECKLIST -->
+<section class="checklist-section">
+  <div class="container">
+    <div class="section-label">Hvad mangler</div>
+    <h2 class="section-title">To-do inden afrejse</h2>
+
+    <div class="check-items">
+      <div class="check-item">
+        <div class="check-icon ci-now">!</div>
+        <div class="check-what">Beslut scenarie (A, B eller C) og book teplantage-hotel</div>
+        <div class="check-when">Nu</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-now">!</div>
+        <div class="check-what">Book overnatning Sigiriya/Habarana (1–4. juli)</div>
+        <div class="check-when">Nu</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-now">!</div>
+        <div class="check-what">Book strandhotel Trincomalee/Nilaveli (4–7. juli)</div>
+        <div class="check-when">Nu</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-now">!</div>
+        <div class="check-what">Book Ella-hotel (10–12. juli)</div>
+        <div class="check-when">Nu</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-now">!</div>
+        <div class="check-what">Book Galle Fort boutique-hotel (14–15. juli)</div>
+        <div class="check-when">Nu</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-now">!</div>
+        <div class="check-what">Book Negombo afrejse-nat (15–16. juli)</div>
+        <div class="check-when">Nu</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-soon">~</div>
+        <div class="check-what">Find og book chauffør med minivan (hele turen, 16 dage)</div>
+        <div class="check-when">4–6 uger før</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-soon">~</div>
+        <div class="check-what">Mail safari-præference til Mahoora (eftermiddag dag 1 + morgen dag 2)</div>
+        <div class="check-when">Inden 7. juli</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-soon">~</div>
+        <div class="check-what">Book hvalsafari Trincomalee</div>
+        <div class="check-when">1–2 uger før</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-soon">~</div>
+        <div class="check-what">ETA visum — alle 4 (gratis for danske statsborgere)</div>
+        <div class="check-when">1 uge før</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-later">·</div>
+        <div class="check-what">Kontakt Arrival Beach & Spa om transfer (båd/bus)</div>
+        <div class="check-when">48 timer før Maldiverne</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-later">·</div>
+        <div class="check-what">Rejseforsikring</div>
+        <div class="check-when">Inden afrejse</div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon ci-done">✓</div>
+        <div class="check-what">Alle fly, togbilletter, Mahoora Yala, Maldiverne, Negombo ankomst</div>
+        <div class="check-when">Klaret</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Lavet til <em>Susanne</em> — familie Andersen, Sri Lanka & Maldiverne 2026</p>
+  <p style="margin-top:.5rem; font-size:11px;">Sidst opdateret 3. juni 2026</p>
+</footer>
+
+</body>
+</html>
