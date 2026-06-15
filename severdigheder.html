@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri Lanka — Seværdigheder & Aktiviteter 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sand: #f5f0e8;
+    --sand-dark: #e8e0d0;
+    --ink: #1a1714;
+    --ink-mid: #4a4540;
+    --ink-light: #8a8078;
+    --teal: #1d6e5a;
+    --teal-light: #e4f0ec;
+    --teal-mid: #2d9070;
+    --amber: #c47d2a;
+    --amber-light: #fdf3e3;
+    --blue: #2a5f8c;
+    --blue-light: #e8f0f7;
+    --red-light: #fdf0ee;
+    --green-light: #eaf5f0;
+    --green: #1a6b45;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  /* HERO */
+  .hero {
+    min-height: 70svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem 2rem 3.5rem;
+    background: var(--ink);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      radial-gradient(circle at 20% 50%, #1d6e5a22 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, #c47d2a18 0%, transparent 45%),
+      radial-gradient(circle at 60% 80%, #1d6e5a15 0%, transparent 40%);
+  }
+
+  .hero-dots {
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, #ffffff06 1px, transparent 1px);
+    background-size: 32px 32px;
+  }
+
+  .hero-content { position: relative; z-index: 1; max-width: 680px; }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+    color: var(--teal-mid);
+    margin-bottom: 1.2rem;
+  }
+
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.4rem, 7vw, 4.5rem);
+    font-weight: 400;
+    color: #f5f0e8;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  .hero h1 em {
+    font-style: italic;
+    color: var(--teal-mid);
+  }
+
+  .hero-sub {
+    font-size: 1rem;
+    color: #a09888;
+    font-weight: 300;
+    max-width: 460px;
+  }
+
+  /* NAV */
+  .nav {
+    background: var(--ink);
+    padding: 0 2rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid #2a2520;
+  }
+
+  .nav-inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+
+  .nav-inner::-webkit-scrollbar { display: none; }
+
+  .nav a {
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 500;
+    color: #a09888;
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 1px solid #3a342c;
+    white-space: nowrap;
+    transition: all 0.15s ease;
+  }
+
+  .nav a:hover, .nav a.active {
+    color: var(--teal-mid);
+    border-color: var(--teal-mid);
+  }
+
+  .nav a.pending {
+    color: #5a5248;
+    border-color: #2a2520;
+  }
+
+  /* SECTIONS */
+  section { padding: 3.5rem 2rem; }
+  .container { max-width: 720px; margin: 0 auto; }
+
+  section:nth-of-type(odd) { background: white; }
+  section:nth-of-type(even) { background: var(--sand); }
+
+  .region-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: .6rem;
+  }
+
+  .region-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    font-weight: 400;
+    line-height: 1.15;
+    margin-bottom: .4rem;
+  }
+
+  .region-meta {
+    font-size: 13px;
+    color: var(--ink-light);
+    margin-bottom: 1.5rem;
+  }
+
+  .region-intro {
+    font-size: 1rem;
+    color: var(--ink-mid);
+    max-width: 540px;
+    margin-bottom: 2rem;
+    line-height: 1.75;
+  }
+
+  /* BASE CARD */
+  .base-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--sand);
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin-bottom: 2rem;
+  }
+
+  section:nth-of-type(even) .base-card { background: white; }
+
+  .base-icon {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    color: var(--teal);
+  }
+
+  .base-text .name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+
+  .base-text p {
+    font-size: 13px;
+    color: var(--ink-mid);
+    line-height: 1.5;
+  }
+
+  /* PRIORITY LABEL */
+  .priority-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--ink-light);
+    margin: 2rem 0 1rem;
+  }
+
+  .priority-label:first-of-type { margin-top: 0; }
+
+  /* ATTRACTION CARD */
+  .attraction {
+    background: white;
+    border: 1px solid var(--sand-dark);
+    border-radius: 14px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 12px;
+  }
+
+  section:nth-of-type(even) .attraction { background: white; }
+
+  .attraction-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .attraction-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 400;
+    color: var(--ink);
+    line-height: 1.3;
+  }
+
+  .attraction-rating {
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-top: 2px;
+  }
+
+  .pill {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: .05em;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .pill-need { background: var(--green-light); color: var(--green); }
+  .pill-nice { background: var(--blue-light); color: var(--blue); }
+  .pill-flex { background: var(--amber-light); color: var(--amber); }
+
+  .meta-row {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 12px;
+    color: var(--ink-light);
+    margin-bottom: 8px;
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .attraction-desc {
+    font-size: 13.5px;
+    color: var(--ink-mid);
+    line-height: 1.7;
+  }
+
+  .attraction-desc strong {
+    color: var(--ink);
+    font-weight: 500;
+  }
+
+  .attraction-desc em {
+    color: var(--amber);
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  /* PHOTO */
+  .attraction-photo {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: block;
+  }
+
+  .photo-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    margin-bottom: 10px;
+  }
+
+  .photo-row img {
+    width: 100%;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  /* OPTIONAL GRID */
+  .opt-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 10px;
+    margin-top: 4px;
+  }
+
+  .opt-card {
+    background: var(--sand);
+    border-radius: 10px;
+    padding: .8rem 1rem;
+  }
+
+  section:nth-of-type(even) .opt-card { background: white; border: 1px solid var(--sand-dark); }
+
+  .opt-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink);
+    margin-bottom: 3px;
+  }
+
+  .opt-desc {
+    font-size: 12.5px;
+    color: var(--ink-mid);
+    line-height: 1.6;
+  }
+
+  /* DAY PLAN */
+  .day-plan {
+    border-left: 3px solid var(--teal);
+    border-radius: 0 10px 10px 0;
+    background: var(--teal-light);
+    padding: .9rem 1.1rem;
+    margin-bottom: 10px;
+  }
+
+  .day-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--teal);
+    margin-bottom: 6px;
+  }
+
+  .day-items {
+    font-size: 12.5px;
+    color: var(--ink-mid);
+    line-height: 1.8;
+  }
+
+  .day-items strong { color: var(--ink); font-weight: 500; }
+  .day-items em { color: var(--amber); font-style: normal; font-weight: 500; }
+
+  /* MAP LINK */
+  .map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--teal);
+    text-decoration: none;
+    margin-top: 4px;
+  }
+
+  /* COMING SOON */
+  .coming-soon {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--ink-light);
+    font-size: 14px;
+  }
+
+  .coming-soon .icon {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-style: italic;
+    color: var(--sand-dark);
+    margin-bottom: .5rem;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--ink);
+    color: #6a6058;
+    text-align: center;
+    padding: 3rem 2rem;
+    font-size: 13px;
+  }
+
+  footer em { font-style: normal; color: var(--teal-mid); }
+
+  @media (max-width: 600px) {
+    section { padding: 2.5rem 1.2rem; }
+    .hero { padding: 2rem 1.2rem 2.5rem; }
+    .nav { padding: 0 1.2rem 1.5rem; }
+    .photo-row { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Familie Andersen · Sommer 2026</div>
+    <h1>Seværdigheder &<br><em>oplevelser</em></h1>
+    <p class="hero-sub">En dybdegennemgang af hvert sted vi overnatter — hvad er must-see, hvad er nice-to-have, og hvor lang tid skal vi afsætte. Til at planlægge med, og til at have i baghovedet på selve dagen.</p>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#sigiriya" class="active">Sigiriya/Habarana</a>
+    <a href="#trinco" class="pending">Trincomalee</a>
+    <a href="#teplantage" class="pending">Teplantage</a>
+    <a href="#ella" class="pending">Ella</a>
+    <a href="#yala" class="pending">Yala</a>
+    <a href="#galle" class="pending">Galle Fort</a>
+    <a href="#negombo" class="pending">Negombo</a>
+    <a href="#maldiverne" class="pending">Maldiverne</a>
+  </div>
+</nav>
+
+<!-- SIGIRIYA / HABARANA -->
+<section id="sigiriya">
+  <div class="container">
+    <div class="region-label">1–4. juli · 3 nætter</div>
+    <h2 class="region-title">Sigiriya & Habarana</h2>
+    <div class="region-meta">Kulturtrekanten — klippefæstninger, huletempler og elefanter</div>
+
+    <div class="base-card">
+      <div class="base-icon">B</div>
+      <div class="base-text">
+        <div class="name">Base: Back of Beyond, Pidurangala</div>
+        <p>Alle køretider er regnet fra hotellet. Pidurangala Rock ligger 5 minutters gang fra døren — jeres mest tilgængelige attraktion på hele turen.</p>
+      </div>
+    </div>
+
+    <div class="region-intro">Tre dage med to need-to-klippeture, et UNESCO-huletempel og elefantsafari i højsæson. Det er den mest aktivitetstunge region på turen — planlæg med tidlige morgener og en eftermiddagspause i poolen.</div>
+
+    <div class="priority-label">Need-to — de fem hovedattraktioner</div>
+
+    <div class="attraction">
+      <div class="attraction-head">
+        <div>
+          <div class="attraction-name">Sigiriya Rock Fortress</div>
+          <div class="attraction-rating">★ 4.7 · 23.766 anmeldelser</div>
+        </div>
+        <span class="pill pill-need">Need-to</span>
+      </div>
+      <div class="meta-row">
+        <div class="meta-item">⏱ 3–4 timer on location</div>
+        <div class="meta-item">🚗 10 min kørsel</div>
+      </div>
+      <p class="attraction-desc">5. århundredes klippefæstning, UNESCO. Vandgårde, fresker, "Lion's Paw"-indgang, 1.200 trin til toppen. Fysisk krævende men ikoniske udsigter. <strong>Start kl. 6–7 om morgenen</strong> — varmen og myldretiden af turister gør middag ulidelig. Indgang lukker kl. 18:30. Solidt fodtøj er et must.</p>
+    </div>
+
+    <div class="attraction">
+      <div class="attraction-head">
+        <div>
+          <div class="attraction-name">Pidurangala Rock</div>
+          <div class="attraction-rating">★ 4.8 · 10.920 anmeldelser</div>
+        </div>
+        <span class="pill pill-need">Need-to</span>
+      </div>
+      <div class="meta-row">
+        <div class="meta-item">⏱ 1–1,5 time on location</div>
+        <div class="meta-item">🚶 5 min gang fra hotellet</div>
+      </div>
+      <p class="attraction-desc">Den bedste udsigt til Sigiriya-klippen er ikke fra Sigiriya selv — det er herfra. 20–30 minutters klatring, sidste stykke er klippeklatring (børnevenligt med god grib). <strong>Solopgang er anbefalingen</strong> — kl. 5:00 afgang, færre mennesker, magisk lys over Lion Rock i tågen. Aber på toppen er en bonus for Nana og Asta.</p>
+    </div>
+
+    <div class="attraction">
+      <div class="attraction-head">
+        <div>
+          <div class="attraction-name">Dambulla Cave Temple</div>
+          <div class="attraction-rating">★ 4.5 · 16.196 anmeldelser</div>
+        </div>
+        <span class="pill pill-need">Need-to</span>
+      </div>
+      <div class="meta-row">
+        <div class="meta-item">⏱ 1–1,5 time on location</div>
+        <div class="meta-item">🚗 30 min kørsel</div>
+      </div>
+      <p class="attraction-desc">UNESCO-grottetempel med 5 huler, 150+ Buddha-statuer og 2.000 m² fresker i over 2.000 år gammel klippe. Barfodet (medbring sokker — varme stensgulve), skuldre og knæ skal dækkes (lungi udlånes). Trappe op tager 10–15 min. Bedst tidligt morgen eller sen eftermiddag for at undgå hede og folkemængder.</p>
+    </div>
+
+    <div class="attraction">
+      <div class="attraction-head">
+        <div>
+          <div class="attraction-name">Minneriya National Park — elefantsafari</div>
+          <div class="attraction-rating">★ 4.5 · 1.768 anmeldelser</div>
+        </div>
+        <span class="pill pill-need">Need-to</span>
+      </div>
+      <div class="meta-row">
+        <div class="meta-item">⏱ 3 timer safari</div>
+        <div class="meta-item">🚗 25–30 min kørsel</div>
+      </div>
+      <p class="attraction-desc">"The Gathering" — juli er i sæson, hundredvis af vilde elefanter samles ved Minneriya-reservoiret. Åben jeep, 4x4. Foruden elefanter: pelikaner, hornfugle, og ofte leoparder eller dvælebjørne. <strong>Eftermiddagssafari (kl. 14–17)</strong> er bedst — elefanterne kommer til vandet i den varme eftermiddag. Bestil via Gayan eller hotellet, ca. 4.000–5.000 LKR/person inkl. jeep og park-billet.</p>
+    </div>
+
+    <div class="attraction">
+      <div class="attraction-head">
+        <div>
+          <div class="attraction-name">Polonnaruwa Ancient City</div>
+          <div class="attraction-rating">★ 4.5 · 1.302 anmeldelser</div>
+        </div>
+        <span class="pill pill-flex">Need-to, men kan komprimeres</span>
+      </div>
+      <div class="meta-row">
+        <div class="meta-item">⏱ 3–4 timer (helst hel dag)</div>
+        <div class="meta-item">🚗 50–60 min kørsel</div>
+      </div>
+      <p class="attraction-desc">Sri Lankas anden gamle hovedstad — Kongepalads-ruiner, Gal Vihara's enorme Buddha-skulpturer hugget i klippe, Vatadage-rundtemplet. Stort område — cykeludlejning ved indgangen fungerer fint for en 11- og 15-årig. Skoindslip ved templer. <strong>Kan komprimeres til 3 timer</strong> hvis I fokuserer på Royal Palace-området og Gal Vihara.</p>
+    </div>
+
+    <div class="priority-label">Optionals — hvis der er plads</div>
+
+    <div class="opt-grid">
+      <div class="opt-card">
+        <div class="opt-name">Habarana Lake — cykeltur</div>
+        <div class="opt-desc">Gratis aktivitet ved hotellet. 30–45 min. Solnedgang over søen, fugle. God afslapning efter en intens dag.</div>
+      </div>
+      <div class="opt-card">
+        <div class="opt-name">Landsbytur med oksekærre + kano</div>
+        <div class="opt-desc">Klassisk Habarana-aktivitet. 2–3 timer. Besøg lokal familie, te-pause, kanotur. God kulturel mellemvej.</div>
+      </div>
+      <div class="opt-card">
+        <div class="opt-name">Hot air balloon over kulturtrekanten</div>
+        <div class="opt-desc">Typisk kun nov–april (monsun). Spørg lokalt om juli er muligt. Solopgangsflyvning, ca. $150–200/person.</div>
+      </div>
+      <div class="opt-card">
+        <div class="opt-name">Ritigala Forest Monastery</div>
+        <div class="opt-desc">Mindre besøgt skovklosterruin, 45 min kørsel. Jungle-vandring, færre turister. For dem der har "set nok templer".</div>
+      </div>
+    </div>
+
+    <div class="priority-label">Forslag til de 3 dage</div>
+
+    <div class="day-plan">
+      <div class="day-title">Dag 1 (1/7) — ankomstdag, light</div>
+      <div class="day-items">Ankomst sen formiddag/middag. Check-in, slap af, akklimatisér. Sen eftermiddag: <strong>Pidurangala</strong> til solnedgang i stedet for solopgang (mindre logistik første dag) — eller gåtur ved Habarana Lake.</div>
+    </div>
+
+    <div class="day-plan">
+      <div class="day-title">Dag 2 (2/7) — Sigiriya + Dambulla</div>
+      <div class="day-items"><strong>06:00</strong> Pidurangala solopgang (1 time)<br><strong>08:00</strong> Morgenmad, hvile<br><strong>10:00</strong> Sigiriya Rock (3–4 timer inkl. kørsel)<br><strong>15:00</strong> Tilbage til hotel, pool, afslapning<br><strong>17:00</strong> Dambulla Cave Temple (sen eftermiddag, mindre hedt)</div>
+    </div>
+
+    <div class="day-plan">
+      <div class="day-title">Dag 3 (3/7) — Polonnaruwa eller Minneriya</div>
+      <div class="day-items"><strong>08:00</strong> Afgang til Polonnaruwa (3–4 timer med cykel)<br><strong>13:00</strong> Frokost retur mod Habarana<br><strong>14:30</strong> Minneriya elefantsafari (3 timer) — <em>perfekt eftermiddagstiming</em><br><strong>18:00</strong> Tilbage, aftensmad, pakning til afgang næste dag</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TRINCOMALEE - PLACEHOLDER -->
+<section id="trinco">
+  <div class="container">
+    <div class="region-label">4–8. juli · 4 nætter</div>
+    <h2 class="region-title">Trincomalee & Nilaveli</h2>
+    <div class="region-meta">Østkysten — hvalsafari, Pigeon Island og stranddage</div>
+    <div class="coming-soon">
+      <div class="icon">···</div>
+      Denne sektion bygges ud næste gang vi går igennem østkysten i detalje.
+    </div>
+  </div>
+</section>
+
+<!-- TEPLANTAGE - PLACEHOLDER -->
+<section id="teplantage">
+  <div class="container">
+    <div class="region-label">8–10. juli · 2 nætter</div>
+    <h2 class="region-title">Teplantage & Kitulgala</h2>
+    <div class="region-meta">Wow-overnatning, Kandy-stop og adventure-dag</div>
+    <div class="coming-soon">
+      <div class="icon">···</div>
+      Denne sektion bygges ud næste gang.
+    </div>
+  </div>
+</section>
+
+<!-- ELLA - PLACEHOLDER -->
+<section id="ella">
+  <div class="container">
+    <div class="region-label">10–12. juli · 2 nætter</div>
+    <h2 class="region-title">Ella</h2>
+    <div class="region-meta">Bjerge, broer og udsigter</div>
+    <div class="coming-soon">
+      <div class="icon">···</div>
+      Denne sektion bygges ud næste gang.
+    </div>
+  </div>
+</section>
+
+<!-- YALA - PLACEHOLDER -->
+<section id="yala">
+  <div class="container">
+    <div class="region-label">12–14. juli · 2 nætter</div>
+    <h2 class="region-title">Yala — Mahoora Safari Camp</h2>
+    <div class="region-meta">Allerede booket og all-inclusive — kort overblik følger</div>
+    <div class="coming-soon">
+      <div class="icon">···</div>
+      Denne sektion bygges ud næste gang.
+    </div>
+  </div>
+</section>
+
+<!-- GALLE - PLACEHOLDER -->
+<section id="galle">
+  <div class="container">
+    <div class="region-label">14–15. juli · 1 nat</div>
+    <h2 class="region-title">Galle Fort</h2>
+    <div class="region-meta">Charme-by — koloniale gader og solnedgang på voldene</div>
+    <div class="coming-soon">
+      <div class="icon">···</div>
+      Denne sektion bygges ud næste gang.
+    </div>
+  </div>
+</section>
+
+<!-- NEGOMBO - PLACEHOLDER -->
+<section id="negombo">
+  <div class="container">
+    <div class="region-label">30/6 + 15–16. juli · 2 nætter total</div>
+    <h2 class="region-title">Negombo</h2>
+    <div class="region-meta">Ankomst og afrejse — bufferdage</div>
+    <div class="coming-soon">
+      <div class="icon">···</div>
+      Denne sektion bygges ud næste gang.
+    </div>
+  </div>
+</section>
+
+<!-- MALDIVERNE - PLACEHOLDER -->
+<section id="maldiverne">
+  <div class="container">
+    <div class="region-label">16–21. juli · 5 nætter</div>
+    <h2 class="region-title">Maldiverne — Gulhi</h2>
+    <div class="region-meta">Strand, snorkling og ren afslapning</div>
+    <div class="coming-soon">
+      <div class="icon">···</div>
+      Denne sektion bygges ud næste gang.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Lavet til <em>Susanne</em> — familie Andersen, Sri Lanka & Maldiverne 2026</p>
+  <p style="margin-top:.5rem; font-size:11px;">Bygges løbende, område for område</p>
+</footer>
+
+</body>
+</html>
