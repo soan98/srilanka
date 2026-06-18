@@ -1,0 +1,826 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri Lanka & Maldiverne 2026 - Familie Andersen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --sand: #f6f1e9; --sand-dark: #e6ddcd; --ink: #181512; --ink-mid: #4a443d;
+    --ink-light: #8c8278; --teal: #1d6e5a; --teal-light: #e4f0ec; --teal-mid: #2d9070;
+    --amber: #bd7826; --amber-light: #fdf3e2; --blue: #2a5f8c; --blue-light: #e9f1f8;
+    --coral: #bd5230; --coral-light: #fbeee9; --green-light: #eaf5f0; --green: #196842;
+    --purple: #6258c4; --purple-light: #edebf9; --booking: #b5481f; --booking-bg: #fbeae2;
+    --shadow-sm: 0 1px 3px rgba(24,21,18,0.04), 0 1px 2px rgba(24,21,18,0.03);
+    --shadow-md: 0 4px 16px rgba(24,21,18,0.06), 0 2px 6px rgba(24,21,18,0.04);
+    --shadow-lg: 0 16px 50px rgba(24,21,18,0.12), 0 6px 16px rgba(24,21,18,0.06);
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--sand); color: var(--ink); font-size: 16px; line-height: 1.65; font-weight: 300; -webkit-font-smoothing: antialiased; }
+
+  .hero { min-height: 100svh; display: flex; flex-direction: column; justify-content: flex-end; padding: 3rem 2rem 3.5rem; position: relative; overflow: hidden; background: linear-gradient(160deg, #14201c, #1a2722 40%, #221d16); }
+  .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 1.2s ease; }
+  .hero-img.loaded { opacity: 0.4; }
+  .hero-scrim { position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,18,16,0.96), rgba(15,18,16,0.7) 45%, rgba(15,18,16,0.8)); }
+  .hero-grain { position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(255,255,255,0.025) 1px, transparent 1px); background-size: 34px 34px; }
+  .hero-content { position: relative; z-index: 2; max-width: 700px; }
+  .hero-eyebrow { font-size: 12px; font-weight: 500; letter-spacing: .22em; text-transform: uppercase; color: var(--teal-mid); margin-bottom: 1.4rem; }
+  .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 9vw, 5.5rem); font-weight: 400; color: #f6f1e9; line-height: 1.05; margin-bottom: 1.3rem; letter-spacing: -0.01em; }
+  .hero h1 em { font-style: italic; color: var(--teal-mid); }
+  .hero-sub { font-size: 1.05rem; color: #c9c0b2; font-weight: 300; max-width: 500px; margin-bottom: 2.4rem; line-height: 1.7; }
+  .hero-stats { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+  .hero-stæt { display: flex; flex-direction: column; gap: 3px; }
+  .hero-stat-num { font-family: 'Playfair Display', serif; font-size: 1.8rem; color: #f6f1e9; line-height: 1; }
+  .hero-stat-label { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: #8a8076; }
+  .scroll-hint { position: absolute; bottom: 1.8rem; right: 2rem; z-index: 2; font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: #6a6058; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+  .scroll-hint::after { content: ''; width: 1px; height: 44px; background: linear-gradient(to bottom, #6a6058, transparent); animation: scrollPulse 2s ease-in-out infinite; }
+  @keyframes scrollPulse { 0%,100% { opacity: .4; transform: scaleY(.8);} 50% { opacity: 1; transform: scaleY(1);} }
+
+  .nav { background: rgba(22,19,16,0.94); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 0.85rem 2rem; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(255,255,255,0.06); }
+  .nav-inner { max-width: 1000px; margin: 0 auto; display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; }
+  .nav-inner::-webkit-scrollbar { display: none; }
+  .nav a { flex-shrink: 0; font-size: 12px; color: #9a9088; text-decoration: none; padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); white-space: nowrap; transition: all 0.18s; }
+  .nav a:hover { color: #fff; border-color: var(--teal-mid); background: rgba(45,144,112,0.15); }
+
+  .legend-bar { background: var(--sand); padding: 1.6rem 2rem 0.7rem; position: sticky; top: 50px; z-index: 90; }
+  .legend-inner { max-width: 800px; margin: 0 auto; display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+  .legend-title { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-light); }
+  .leg { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--ink-mid); }
+  .leg-dot { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; }
+
+  .timeline { max-width: 800px; margin: 0 auto; padding: 1.8rem 1.5rem 4rem; }
+  .stop { position: relative; padding-left: 40px; padding-bottom: 6px; }
+  .stop::before { content: ''; position: absolute; left: 13px; top: 10px; bottom: -6px; width: 2px; background: var(--sand-dark); }
+  .stop:last-child::before { display: none; }
+  .stop-dot { position: absolute; left: 6px; top: 28px; width: 15px; height: 15px; border-radius: 50%; border: 3px solid var(--sand); z-index: 2; box-shadow: 0 0 0 1px rgba(0,0,0,0.04); }
+  .d-booked { background: var(--teal); } .d-open { background: var(--sand); border: 3px solid var(--amber); box-shadow: inset 0 0 0 2px var(--sand); }
+  .d-wow { background: var(--amber); } .d-fly { background: var(--blue); } .d-transit { background: var(--ink-light); }
+
+  .stop-card { background: white; border-radius: 20px; margin: 14px 0; overflow: hidden; box-shadow: var(--shadow-sm); transition: box-shadow .3s ease; border: 1px solid rgba(230,221,205,0.7); }
+  .stop-card:hover { box-shadow: var(--shadow-md); }
+  .stop-card.expanded { box-shadow: var(--shadow-lg); }
+  .stop-card.open-booking { border: 1.5px dashed var(--amber); }
+
+  /* HEADER with small image thumbnail beside text (NOT behind it) */
+  .stop-head { display: flex; align-items: stretch; cursor: pointer; user-select: none; }
+  .stop-head:hover { background: rgba(24,21,18,0.015); }
+  .stop-thumb-strip { width: 90px; flex-shrink: 0; position: relative; overflow: hidden; }
+  .stop-thumb-strip-fallback { position: absolute; inset: 0; }
+  .stop-thumb-strip img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s; }
+  .stop-thumb-strip img.loaded { opacity: 1; }
+  .stop-head-body { flex: 1; min-width: 0; padding: 16px 18px; display: flex; align-items: center; gap: 14px; }
+  .stop-head-main { flex: 1; min-width: 0; }
+  .stop-date { font-size: 11px; font-weight: 500; color: var(--ink-light); letter-spacing: .04em; margin-bottom: 3px; }
+  .stop-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 500; color: var(--ink); line-height: 1.18; }
+  .stop-sub { font-size: 12.5px; color: var(--ink-mid); margin-top: 3px; line-height: 1.45; }
+  .stop-head-right { display: flex; flex-direction: column; align-items: flex-end; gap: 7px; flex-shrink: 0; }
+  .stop-nights { font-size: 11px; color: var(--ink-light); white-space: nowrap; }
+  .chevron { width: 20px; height: 20px; color: var(--ink-light); transition: transform .3s cubic-bezier(.4,0,.2,1); flex-shrink: 0; }
+  .stop-card.expanded .chevron { transform: rotate(180deg); }
+  /* Expanded: show a wider banner image below the header */
+  .stop-banner { height: 0; overflow: hidden; transition: height .4s ease; position: relative; }
+  .stop-card.expanded .stop-banner { height: 180px; }
+  .stop-banner-fallback { position: absolute; inset: 0; }
+  .stop-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .9s; }
+  .stop-banner img.loaded { opacity: 1; }
+
+  .th-jungle { background: linear-gradient(135deg, #1d6e5a, #2d9070 55%, #3faa7a); }
+  .th-coast { background: linear-gradient(135deg, #1a5276, #2a7fb0 55%, #3aa0c8); }
+  .th-temple { background: linear-gradient(135deg, #a8651a, #c4852f 55%, #d8a040); }
+  .th-tea { background: linear-gradient(135deg, #2f6e3a, #4a8f4a 55%, #6aa85a); }
+  .th-mountain { background: linear-gradient(135deg, #b04a28, #c4682f 55%, #d4884a); }
+  .th-safari { background: linear-gradient(135deg, #8a6a1a, #a8852a 55%, #c4a040); }
+  .th-fort { background: linear-gradient(135deg, #9a4530, #bd5230 55%, #d47040); }
+  .th-island { background: linear-gradient(135deg, #0d7a8c, #1aa0b0 55%, #3ac0c8); }
+  .th-sky { background: linear-gradient(135deg, #2a5f8c, #4a7fa8 55%, #6a9fc0); }
+  .th-purple { background: linear-gradient(135deg, #5247a8, #6258c4 55%, #7d74d8); }
+
+  .pill { font-size: 10px; font-weight: 500; padding: 3px 11px; border-radius: 20px; white-space: nowrap; letter-spacing: .04em; text-transform: uppercase; }
+  .p-booked { background: var(--green-light); color: var(--green); } .p-open { background: var(--amber-light); color: var(--amber); }
+  .p-fly { background: var(--blue-light); color: var(--blue); } .p-fixed { background: var(--teal-light); color: var(--teal); }
+
+  .stop-body { max-height: 0; overflow: hidden; transition: max-height .45s cubic-bezier(.4,0,.2,1); }
+  .stop-card.expanded .stop-body { max-height: 12000px; }
+  .stop-body-inner { padding: 20px 22px 24px; }
+
+  .block { margin-top: 24px; }
+  .block:first-child { margin-top: 0; }
+  .block-label { font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase; color: var(--teal); margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .block-label .ico { font-size: 14px; opacity: .85; }
+
+  /* ACCOMMODATION with photo */
+  .acc { display: flex; gap: 0; background: var(--sand); border-radius: 14px; overflow: hidden; }
+  .acc.booked { background: var(--green-light); }
+  .acc-photo { width: 110px; flex-shrink: 0; position: relative; overflow: hidden; }
+  .acc-photo-fallback { position: absolute; inset: 0; }
+  .acc-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s; }
+  .acc-photo img.loaded { opacity: 1; }
+  .acc-photo-ico { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 26px; color: rgba(255,255,255,0.9); }
+  .acc-info { flex: 1; min-width: 0; padding: 14px 16px; }
+  .acc-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+  .acc-name { font-size: 14.5px; font-weight: 500; color: var(--ink); }
+  .acc-detail { font-size: 13px; color: var(--ink-mid); line-height: 1.6; margin-top: 5px; }
+  .acc-ref { font-size: 11px; color: var(--ink-light); margin-top: 7px; }
+  .acc-price { font-size: 12.5px; font-weight: 500; color: var(--teal); white-space: nowrap; }
+
+  /* HOTEL OPTIONS */
+  .opt-choice { display: grid; gap: 11px; }
+  .opt-c { display: flex; gap: 0; background: white; border: 1px solid var(--sand-dark); border-radius: 14px; overflow: hidden; transition: border-color .2s, box-shadow .2s; }
+  .opt-c:hover { border-color: var(--teal-mid); box-shadow: var(--shadow-sm); }
+  .opt-c-photo { width: 96px; flex-shrink: 0; position: relative; }
+  .opt-c-photo-fallback { position: absolute; inset: 0; }
+  .opt-c-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .8s; }
+  .opt-c-photo img.loaded { opacity: 1; }
+  .opt-c-photo-ico { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; color: rgba(255,255,255,0.9); }
+  .opt-c-info { flex: 1; min-width: 0; padding: 13px 15px; }
+  .opt-c-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 5px; }
+  .opt-c-name { font-size: 14px; font-weight: 500; color: var(--ink); }
+  .opt-c-tag { font-size: 10px; font-weight: 500; padding: 3px 9px; border-radius: 11px; white-space: nowrap; }
+  .tag-warm { background: var(--coral-light); color: var(--coral); } .tag-rec { background: var(--teal-light); color: var(--teal); } .tag-check { background: var(--amber-light); color: var(--amber); }
+  .opt-c-desc { font-size: 12.5px; color: var(--ink-mid); line-height: 1.55; }
+  .opt-c-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
+  .mini-tag { font-size: 11px; padding: 2px 8px; border-radius: 11px; border: 1px solid var(--sand-dark); color: var(--ink-light); }
+  .opt-c-price { font-size: 12px; font-weight: 500; color: var(--teal); margin-left: auto; }
+
+  /* ACTIVITY with thumbnail */
+  .act { display: flex; gap: 13px; padding: 12px 0; border-bottom: 1px solid var(--sand-dark); align-items: flex-start; }
+  .act:last-child { border-bottom: none; }
+  .act-thumb { width: 58px; height: 58px; border-radius: 11px; flex-shrink: 0; position: relative; overflow: hidden; }
+  .act-thumb-fallback { position: absolute; inset: 0; }
+  .act-thumb img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity .7s; }
+  .act-thumb img.loaded { opacity: 1; }
+  .act-thumb-ico { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 22px; }
+  .act-body { flex: 1; min-width: 0; }
+  .act-name { font-size: 14px; font-weight: 500; color: var(--ink); display: flex; align-items: center; gap: 9px; flex-wrap: wrap; line-height: 1.35; }
+  .act-meta { font-size: 11px; color: var(--ink-light); font-weight: 400; margin-top: 2px; }
+  .act-desc { font-size: 13px; color: var(--ink-mid); line-height: 1.6; margin-top: 4px; }
+  .act-flag { font-size: 9px; font-weight: 500; padding: 2px 8px; border-radius: 10px; text-transform: uppercase; letter-spacing: .05em; }
+  .flag-need { background: var(--green-light); color: var(--green); } .flag-nice { background: var(--blue-light); color: var(--blue); } .flag-gem { background: var(--purple-light); color: var(--purple); }
+  .book-flag { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 500; color: var(--booking); background: var(--booking-bg); padding: 4px 10px; border-radius: 8px; margin-top: 8px; line-height: 1.4; }
+
+  .transport { position: relative; padding-left: 40px; }
+  .transport-inner { display: flex; align-items: center; gap: 10px; padding: 9px 0 9px 4px; font-size: 11.5px; color: var(--ink-light); }
+  .transport.long .transport-inner { color: #8a5618; }
+  .transport-bar { height: 2px; flex: 1; background: repeating-linear-gradient(90deg, var(--sand-dark) 0 5px, transparent 5px 10px); }
+  .transport.long .transport-bar { background: repeating-linear-gradient(90deg, var(--amber) 0 5px, transparent 5px 10px); }
+  .transport-ico { font-size: 14px; }
+
+  .map-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--teal); cursor: pointer; margin-top: 16px; padding: 7px 13px; border: 1px solid var(--sand-dark); border-radius: 20px; transition: all .18s; background: white; }
+  .map-toggle:hover { border-color: var(--teal-mid); background: var(--teal-light); }
+  .stop-map { width: 100%; height: 240px; border: 0; border-radius: 13px; margin-top: 12px; display: none; background: var(--sand-dark); }
+  .stop-map.show { display: block; }
+
+  .freedom { background: var(--purple-light); border-radius: 13px; padding: 14px 16px; font-size: 13px; color: #443c82; line-height: 1.65; display: flex; gap: 11px; margin-top: 18px; }
+  .freedom .fico { font-size: 16px; flex-shrink: 0; }
+
+  .phase { max-width: 800px; margin: 3rem auto 0.5rem; padding: 0 1.5rem; }
+  .phase-label { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; color: var(--ink-light); display: flex; align-items: center; gap: 14px; }
+  .phase-label::after { content: ''; flex: 1; height: 1px; background: var(--sand-dark); }
+
+  .summary-strip { max-width: 800px; margin: 0 auto; padding: 1.8rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .sum-card { padding: 18px 20px; border-radius: 16px; background: white; box-shadow: var(--shadow-sm); border: 1px solid rgba(230,221,205,0.7); }
+  .sum-num { font-size: 28px; font-weight: 500; line-height: 1; font-family: 'Playfair Display', serif; }
+  .sum-label { font-size: 12.5px; color: var(--ink-mid); margin-top: 7px; line-height: 1.45; }
+
+  footer { background: linear-gradient(160deg, #1a2722, #181512); color: #7a7066; text-align: center; padding: 3.5rem 2rem; font-size: 13px; }
+  footer em { font-style: normal; color: var(--teal-mid); }
+
+  @media (max-width: 600px) {
+    .hero { padding: 2rem 1.3rem 2.5rem; }
+    .nav, .legend-bar { padding-left: 1.3rem; padding-right: 1.3rem; }
+    .timeline { padding: 1.5rem 1rem 3rem; }
+    .stop { padding-left: 30px; } .stop-dot { left: 1px; } .stop::before { left: 8px; }
+    .transport { padding-left: 30px; }
+
+    .stop-body-inner { padding: 16px 15px 20px; }
+    .summary-strip { grid-template-columns: 1fr; }
+    .acc-photo, .opt-c-photo { width: 84px; }
+  }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px);} to { opacity: 1; transform: translateY(0);} }
+  .hero-content > * { animation: fadeUp .8s cubic-bezier(.2,.6,.2,1) both; }
+  .hero-eyebrow { animation-delay: .15s;} .hero h1 { animation-delay: .28s;}
+  .hero-sub { animation-delay: .44s;} .hero-stats { animation-delay: .58s;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <img class="hero-img" src="https://lh3.googleusercontent.com/place-photos/AJRVUZNl5w3NujxiPU7hJ41DMuFkYHVtbYedJI0br_LxiozYHpFaoXvsZjmAr5tWnBtF5L1QFlXM5EuY_5JEgFrf4rS-IfMDHQuzD5o_ENFos3SJZ0fGGMhi5ZyVmlcl7fwRZfGf2KwU2tNWEG9HsQ=s1600-w1600-h1000" alt="" onload="this.classList.add('loaded')" onerror="this.remove()">
+  <div class="hero-scrim"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">Familie Andersen - 29. juni - 22. juli 2026</div>
+    <h1>Sri Lanka<br>& <em>Maldiverne</em></h1>
+    <p class="hero-sub">Hele rejsen i en tidslinje - rejse, overnatning og oplevelser. Tryk pa hvert stop for at folde detaljerne ud. Det faste sidder fast; resten er frit og fleksibelt. Vi har Gayan som chauffør, sa vi kan stoppe hvor vi vil.</p>
+    <div class="hero-stats">
+      <div class="hero-stat"><span class="hero-stat-num">22</span><span class="hero-stat-label">dage</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">11</span><span class="hero-stat-label">overnatninger</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">2</span><span class="hero-stat-label">lande</span></div>
+      <div class="hero-stat"><span class="hero-stat-num">4</span><span class="hero-stat-label">mangler</span></div>
+    </div>
+  </div>
+  <div class="scroll-hint">Scroll</div>
+</div>
+
+<nav class="nav"><div class="nav-inner"><a href="#negombo1">Negombo</a><a href="#sigiriya">Sigiriya</a><a href="#nilaveli">Nilaveli</a><a href="#kandy">Kandy</a><a href="#teplantage">Teplantage</a><a href="#ella">Ella</a><a href="#yala">Yala</a><a href="#galle">Galle</a><a href="#negombo2">Negombo</a><a href="#maldiverne">Maldiverne</a></div></nav>
+
+<div class="legend-bar"><div class="legend-inner">
+  <span class="legend-title">Status</span>
+  <span class="leg"><span class="leg-dot" style="background:#1d6e5a"></span>Booket</span>
+  <span class="leg"><span class="leg-dot" style="background:#f6f1e9;border:2px solid #bd7826"></span>Mangler</span>
+  <span class="leg"><span class="leg-dot" style="background:#bd7826"></span>Wow-stop</span>
+  <span class="leg"><span class="leg-dot" style="background:#2a5f8c"></span>Fly</span>
+  <span class="leg"><span class="leg-dot" style="background:#8c8278"></span>Dagsstop</span>
+</div></div>
+
+<div class="phase"><div class="phase-label">Ankomst & kulturtrekanten</div></div>
+<div class="timeline">
+<div class="stop" id="negombo1">
+    <div class="stop-dot d-fly"></div>
+    <div class="stop-card ">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-sky"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP2RtM7Ap6QZuGwlQO1hhP131pSwda5aPx4Ss47eT5QH-ITkc7IYS2wiQveAEA7r5Hv9rZKsYu9dzbYRMzYQav_nSlrGx_xd_mj7ORiGcdEdraggyZbwA_zweXSv1z4w5AWCRte8aSgxwJP_A=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">29-30/6</div>
+            <div class="stop-title">Fly + Negombo ankomst</div>
+            <div class="stop-sub">København -> Colombo, første nat</div>
+          </div>
+          <div class="stop-head-right"><span class="pill p-booked">Booket</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-sky"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP2RtM7Ap6QZuGwlQO1hhP131pSwda5aPx4Ss47eT5QH-ITkc7IYS2wiQveAEA7r5Hv9rZKsYu9dzbYRMzYQav_nSlrGx_xd_mj7ORiGcdEdraggyZbwA_zweXSv1z4w5AWCRte8aSgxwJP_A=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#9992;</span> Rejse</div>
+          <div class="acc booked"><div class="acc-photo"><div class="acc-photo-fallback th-sky"></div><div class="acc-photo-ico">&#9992;</div></div>
+          <div class="acc-info"><div class="acc-top"><div class="acc-name">Air India - CPH -> Colombo via London & Mumbai. Ankomst 30/6 kl. 15:00. Gayan venter med navneskilt.</div></div></div></div></div>
+<div class="block"><div class="block-label"><span class="ico">&#8962;</span> Overnatning</div><div class="acc booked">
+      <div class="acc-photo"><div class="acc-photo-fallback th-sky"></div><div class="acc-photo-ico">&#127968;</div></div>
+      <div class="acc-info">
+        <div class="acc-top"><div class="acc-name">Mango House Japanese Guest House</div><div class="acc-price">$85</div></div>
+        <div class="acc-detail">1 nat - Deluxe Family Room (Cottage 10) - 4 twin senge - AC - morgenmad. Pool, firefly-have, tæt pa lufthavnen. Rost med 4.7 i rating.</div><div class="acc-ref">Ref 6099.372.738</div>
+      </div>
+    </div></div>
+<div class="freedom"><span class="fico">&#10022;</span><div>Bare en blod ankomstnat. Fiskemarkedet gemmer vi til afrejsenatten d. 15/7, hvor I er friske.</div></div>
+      </div></div>
+    </div>
+  </div>
+<div class="transport"><div class="transport-inner"><span class="transport-ico">&#128666;</span><span>~3t</span><div class="transport-bar"></div><span>Negombo -> Sigiriya</span></div></div>
+<div class="stop" id="sigiriya">
+    <div class="stop-dot d-booked"></div>
+    <div class="stop-card ">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-jungle"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNl5w3NujxiPU7hJ41DMuFkYHVtbYedJI0br_LxiozYHpFaoXvsZjmAr5tWnBtF5L1QFlXM5EuY_5JEgFrf4rS-IfMDHQuzD5o_ENFos3SJZ0fGGMhi5ZyVmlcl7fwRZfGf2KwU2tNWEG9HsQ=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">1-4/7</div>
+            <div class="stop-title">Sigiriya & Habarana</div>
+            <div class="stop-sub">Kulturtrekanten - klipper, templer, elefanter</div>
+          </div>
+          <div class="stop-head-right"><div class="stop-nights">3 nætter</div><span class="pill p-booked">Booket</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-jungle"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNl5w3NujxiPU7hJ41DMuFkYHVtbYedJI0br_LxiozYHpFaoXvsZjmAr5tWnBtF5L1QFlXM5EuY_5JEgFrf4rS-IfMDHQuzD5o_ENFos3SJZ0fGGMhi5ZyVmlcl7fwRZfGf2KwU2tNWEG9HsQ=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#8962;</span> Overnatning</div><div class="acc booked">
+      <div class="acc-photo"><div class="acc-photo-fallback th-jungle"></div><div class="acc-photo-ico">&#127794;</div></div>
+      <div class="acc-info">
+        <div class="acc-top"><div class="acc-name">Back of Beyond - Pidurangala</div><div class="acc-price">$518</div></div>
+        <div class="acc-detail">3 nætter - Quadruple Tree House - trætophus i jungle, 5 min fra Pidurangala Rock. Morgenmad. Vilde dyr pa matriklen. Rating 4.5.</div><div class="acc-ref">Ref 6576.148.855</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#9678;</span> Oplevelser</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-jungle"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNl5w3NujxiPU7hJ41DMuFkYHVtbYedJI0br_LxiozYHpFaoXvsZjmAr5tWnBtF5L1QFlXM5EuY_5JEgFrf4rS-IfMDHQuzD5o_ENFos3SJZ0fGGMhi5ZyVmlcl7fwRZfGf2KwU2tNWEG9HsQ=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Sigiriya Rock Fortress <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">3-4 timer - 10 min - start kl. 6-7</div>
+        <div class="act-desc">5. arh. UNESCO-klippefastning. 1.200 trin, fresker, Lion's Paw. Tidlig morgen for at undga hede og ko.</div><div class="book-flag">&#9888; NB: Billet købes ved indgangen (~$30/voksen). Ingen forhåndsbooking, men kom tidligt.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-jungle"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPCqXNnZSxJOYRa7FJYB-EWFy1fafZWE3cx_ArbkY--5bJxGhfVwSxo34elPqXbf2DbGhzKV0JRkFylXnQQHJDD9hsKS_BtrJmEfDFiMecdbQYuHA651xbJpniAYOd0Oybkn2YixOFi_rA3BhQ=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Pidurangala Rock <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">1-1,5 time - 5 min gang - solopgang</div>
+        <div class="act-desc">Bedste udsigt til Sigiriya. Kl. 5 afgang, magisk lys i tagen. Let klippeklatring til sidst.</div><div class="book-flag">&#9888; NB: Lille entre ved tempelfoden, kontant. Ingen booking.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-temple"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNSsArq8_GX8Hpof8H0r7S5exTvXf9UsW0HC_DxYDmW8ROT2ffOGhB-gLKjRxlQa5fLz-1QaEI3OPA6DwY-MH5tjcgRZttcMXWFWfZfLFsVTyEkLFBWF3ZKI5MHSSFpUQi4eXYVktDAV-ZXXQ=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Dambulla Cave Temple <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">1-1,5 time - 30 min</div>
+        <div class="act-desc">UNESCO-grottetempel, 5 huler, 150+ Buddha-statuer. Barfodet, skuldre/kna dakket.</div><div class="book-flag">&#9888; NB: Billet ved indgangen. Ingen forhåndsbooking.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-jungle"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMr9JnC1IzIa0ltt1rJa2xdAPoIuKdhE3NXJ-oQbxcKZmtahCAXSuDlpHaBPRl9AWWgWWW93H63Psb3Qkz3RuSG1LcBgpRnLyqr9ygIJRIQ44SRxpvb7l_cnCLvsvqqZ3piK0xHVg2ae-UT_i8=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Minneriya elefantsafari <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">3 timer - 25 min - eftermiddag</div>
+        <div class="act-desc">"The Gathering" - juli i sason, hundredvis af vilde elefanter. Eftermiddagssafari kl. 14-17 bedst.</div><div class="book-flag">&#9888; NB: SKAL bookes - jeep + park-billet via Gayan eller hotel 1 dag for. Ca. 4.000-5.000 LKR/pers.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-temple"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPlOSEtVMlgb_td6SVQSASnyUKvfYJ3GAOXavpKiZn7EA5uFe3Ir2ROvn5kWgpdkrk6OQMJVkiXFRmow-PWmPHzU8oJ8kAz7defDH34Vjw_-Idum_qZ0ohZuallXhTomwpb6pLAC7KhT56l9naFKN5Dhg=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Polonnaruwa ancient city <span class="act-flag flag-nice">Nice-to</span></div><div class="act-meta">3-4 timer - 50 min</div>
+        <div class="act-desc">Gammel hovedstad med cykeludlejning. Gal Vihara's klippe-Buddhaer. Kan komprimeres.</div><div class="book-flag">&#9888; NB: Billet ved indgangen. Cykler lejes pa stedet.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#10022;</span> Hidden gems - tilvalg med chauffør</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Kaludiya Pokuna <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">1-2 timer - 30 min</div>
+        <div class="act-desc">"Blackwater Pond" - 7. arh. skovkloster-ruin i junglen. Nasten ingen turister, meditativ.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Sigiriya Museum <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">45 min - inkl. i entre</div>
+        <div class="act-desc">Ofte overset, men et af landets fineste museer. Besog for I klatrer for konteksten.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Ritigala Forest Monastery <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">2 timer - 45 min</div>
+        <div class="act-desc">Mystisk skovklosterruin pa et bjerg, jungle-vandring, stort set ingen turister.</div>
+      </div>
+    </div></div>
+<div class="map-toggle" onclick="toggleMap(event, this)">&#128506; Vis kort</div><iframe class="stop-map" loading="lazy" data-src="https://www.google.com/maps?q=Sigiriya+Pidurangala+Dambulla+Minneriya&z=10&output=embed"></iframe>
+      </div></div>
+    </div>
+  </div>
+<div class="transport long"><div class="transport-inner"><span class="transport-ico">&#128666;</span><span>~3,5t</span><div class="transport-bar"></div><span>Sigiriya -> Nilaveli (ostkysten)</span></div></div>
+<div class="stop" id="nilaveli">
+    <div class="stop-dot d-booked"></div>
+    <div class="stop-card ">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-coast"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOuZ7qf-utPFTwMFhofRX_NWNHom-KMfbg1opxDUfL-ZOjpcWsG0whCW_AaLwvkC_pc6RJkuyqbLy13E39Ufb3v1C7yf2o2NbSaQV5Rj3emdIDGD_ZAtZ5NdHNWw7oEDqr2NU8_oJaPNkD-tIA=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">4-8/7</div>
+            <div class="stop-title">Trincomalee & Nilaveli</div>
+            <div class="stop-sub">Østkysten - hvalsafari, Pigeon Island, strand</div>
+          </div>
+          <div class="stop-head-right"><div class="stop-nights">4 nætter</div><span class="pill p-booked">Booket</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-coast"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOuZ7qf-utPFTwMFhofRX_NWNHom-KMfbg1opxDUfL-ZOjpcWsG0whCW_AaLwvkC_pc6RJkuyqbLy13E39Ufb3v1C7yf2o2NbSaQV5Rj3emdIDGD_ZAtZ5NdHNWw7oEDqr2NU8_oJaPNkD-tIA=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#8962;</span> Overnatning</div><div class="acc booked">
+      <div class="acc-photo"><div class="acc-photo-fallback th-coast"></div><div class="acc-photo-ico">&#127965;</div></div>
+      <div class="acc-info">
+        <div class="acc-top"><div class="acc-name">Beach Lovers Tiny House - Nilaveli</div><div class="acc-price">$622</div></div>
+        <div class="acc-detail">4 nætter - Deluxe Family Room - 3 fulde senge - AC - morgenmad. Direkte ved Nilaveli-stranden. Nyt sted.</div><div class="acc-ref">Ref 5671.466.341</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#9678;</span> Oplevelser</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-coast"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOuZ7qf-utPFTwMFhofRX_NWNHom-KMfbg1opxDUfL-ZOjpcWsG0whCW_AaLwvkC_pc6RJkuyqbLy13E39Ufb3v1C7yf2o2NbSaQV5Rj3emdIDGD_ZAtZ5NdHNWw7oEDqr2NU8_oJaPNkD-tIA=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Hvalsafari <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">4-5 timer - afgang kl. 6 fra Trinco havn</div>
+        <div class="act-desc">Susannes drøm. Blahvaler og spækhuggere i peak-sason. Søsygepiller med!</div><div class="book-flag">&#9888; NB: SKAL bookes - bad via Gayan eller hotel 1-2 dage for. Vejret afgor om den kører.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-coast"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOuZ7qf-utPFTwMFhofRX_NWNHom-KMfbg1opxDUfL-ZOjpcWsG0whCW_AaLwvkC_pc6RJkuyqbLy13E39Ufb3v1C7yf2o2NbSaQV5Rj3emdIDGD_ZAtZ5NdHNWw7oEDqr2NU8_oJaPNkD-tIA=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Pigeon Island snorkling <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">2-3 timer - 15 min bådtur</div>
+        <div class="act-desc">Revhajer (harmløse), skildpadder, koraller. I har eget snorkeludstyr.</div><div class="book-flag">&#9888; NB: SKAL bookes - bad + park-billet ved Nilaveli strand fra kl. 8:30 (~$40/pers). Medbring pas.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-fort"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZM2L1y8e89Gq-pWrBY3b6q1h_1DZRUtTD1mh0SWi3kBLJv-h1pJoF-pOvmwmZf--zWuRVEtxqyjkD20bU3Oty7hIrpHs3RDBU1e5UsUsiudfTUkAeMCRi3f45G4g53Vmel3IiuoCgpGQ-Yp=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Fort Frederick & Koneswaram <span class="act-flag flag-nice">Nice-to</span></div><div class="act-meta">1,5-2 timer - 25 min</div>
+        <div class="act-desc">1600-tals fort med vilde hjorte og et Shiva-tempel pa en klippe ud mod havet.</div><div class="book-flag">&#9888; NB: Fri entre. Ingen booking.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#10022;</span> Hidden gems - tilvalg med chauffør</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Kanniya Hot Water Springs <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">30 min - 20 min</div>
+        <div class="act-desc">7 firkantede varme bronde side om side, hver med sin temperatur. Rustikt og lokalt.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Marble Beach <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">1/2 dag - 45 min</div>
+        <div class="act-desc">Marinedrevet, krystalklart vand, velholdt og roligt. Alternativ stranddag.</div>
+      </div>
+    </div></div>
+<div class="freedom"><span class="fico">&#10022;</span><div>Den 7/7 er en helt fri dag - den ekstra stranddag vi valgte. Hvis vejret lukker hvalsafari en dag, har I plads til at flytte den.</div></div>
+<div class="map-toggle" onclick="toggleMap(event, this)">&#128506; Vis kort</div><iframe class="stop-map" loading="lazy" data-src="https://www.google.com/maps?q=Nilaveli+Beach+Pigeon+Island+Trincomalee&z=11&output=embed"></iframe>
+      </div></div>
+    </div>
+  </div>
+</div>
+<div class="phase" style="margin-top:1rem"><div class="phase-label">Bjerge, te & eventyr</div></div>
+<div class="timeline">
+<div class="transport long"><div class="transport-inner"><span class="transport-ico">&#128666;</span><span>~4t + stop</span><div class="transport-bar"></div><span>Nilaveli -> Kandy (dagsstop) -> teplantage</span></div></div>
+<div class="stop" id="kandy">
+    <div class="stop-dot d-transit"></div>
+    <div class="stop-card ">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-temple"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOJYNNVQ46KsTKhGKy-91OdoI_rtcn9vNvFbEckukQVZFviMYaMKjDkTmyhl8MUhLVRrjmc4rgE5imUw-hUx6zYEEVFjsUbRvpikaYBzkev8llroKbe3Z1zOyoymETDGN32gsS5vR5dLi0q9w=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">8/7</div>
+            <div class="stop-title">Kandy</div>
+            <div class="stop-sub">Dagsstop undervejs - ingen overnatning</div>
+          </div>
+          <div class="stop-head-right"><div class="stop-nights">Dagsstop</div><span class="pill p-fixed">Plan klar</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-temple"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOJYNNVQ46KsTKhGKy-91OdoI_rtcn9vNvFbEckukQVZFviMYaMKjDkTmyhl8MUhLVRrjmc4rgE5imUw-hUx6zYEEVFjsUbRvpikaYBzkev8llroKbe3Z1zOyoymETDGN32gsS5vR5dLi0q9w=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#9678;</span> Oplevelser</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-temple"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOJYNNVQ46KsTKhGKy-91OdoI_rtcn9vNvFbEckukQVZFviMYaMKjDkTmyhl8MUhLVRrjmc4rgE5imUw-hUx6zYEEVFjsUbRvpikaYBzkev8llroKbe3Z1zOyoymETDGN32gsS5vR5dLi0q9w=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Temple of the Tooth <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">1-1,5 time</div>
+        <div class="act-desc">Sri Lankas helligste tempel - en Buddha-tandrelikvie. Tim det med Thewawa-ritualet (9:30/13:30/18:30).</div><div class="book-flag">&#9888; NB: Billet ved indgangen. Ingen forhåndsbooking - men klædekode (skuldre/kna dakket).</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-temple"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZMmZBJyUdTdcNB_uDWDwU_sZfxMaqRK5yTYXzOb2GwB-yF3-RPBPU3zjAuWGbGr5Fg29jVpaW04nu-nsqi8kbu8PBCXg9oI9DweTpgFSFU_L5yx07ORISRqMmGK0Nbc5oZqMOaZHqjQ0K_i=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Kandy Lake <span class="act-flag flag-nice">Nice-to</span></div><div class="act-meta">20-30 min - gratis</div>
+        <div class="act-desc">Kort gåtur langs vandet lige ved templet. Fin afrunding inden I kører videre.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#10022;</span> Hidden gems - tilvalg med chauffør</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Royal Botanic Gardens, Peradeniya <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">1-3 timer - 15 min syd</div>
+        <div class="act-desc">59 hektar, 4.000+ plantearter, koloni af flyvende hunde. Kun hvis I er forud for skema.</div><div class="book-flag">&#9888; NB: Billet ved indgangen.</div>
+      </div>
+    </div></div>
+<div class="freedom"><span class="fico">&#10022;</span><div>Vi sover ikke i Kandy - kun et stop pa vejen. Tooth Temple er det vigtigste (1 time), resten er frit. Med Gayan bestemmer I selv.</div></div>
+      </div></div>
+    </div>
+  </div>
+<div class="stop" id="teplantage">
+    <div class="stop-dot d-wow"></div>
+    <div class="stop-card open-booking">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-tea"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPsbz9arBsniQNo6bWRxPUQkXi_8HUXSP56pP_J7O0cazAuFCsoHrLWgRs58CDCQDZMc8oNafZ2qFy5qSNi04kCbZ5rVvBUzeO-WuaEE0m8aJOnii-SgrWVuMS9YT4clBBHhK9ZOMflNEgOGA=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">8-10/7</div>
+            <div class="stop-title">Teplantage / Kitulgala</div>
+            <div class="stop-sub">Wow-overnatning + adventure - valg base</div>
+          </div>
+          <div class="stop-head-right"><div class="stop-nights">2 nætter</div><span class="pill p-open">Mangler</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-tea"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPsbz9arBsniQNo6bWRxPUQkXi_8HUXSP56pP_J7O0cazAuFCsoHrLWgRs58CDCQDZMc8oNafZ2qFy5qSNi04kCbZ5rVvBUzeO-WuaEE0m8aJOnii-SgrWVuMS9YT4clBBHhK9ZOMflNEgOGA=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#8962;</span> Vælg overnatning - varme + pool (max ~1.750 kr/nat)</div><div class="opt-choice"><div class="opt-c">
+      <div class="opt-c-photo"><div class="opt-c-photo-fallback th-tea"></div><div class="opt-c-photo-ico">&#127965;</div></div>
+      <div class="opt-c-info">
+        <div class="opt-c-top"><div class="opt-c-name">Paradise Eco Garden - Kitulgala</div><span class="opt-c-tag tag-rec">Anbefalet · Kitulgala</span></div>
+        <div class="opt-c-desc">Chalets pa toppen af et bjerg i 80-acre økohave, infinity-pool med dalpanorama. Varmt regnskovsklima. Tæt pa rafting-floden. Naturskont, privat, god mad.</div>
+        <div class="opt-c-meta"><span class="mini-tag">&#9733; 4.5 - 59</span><span class="mini-tag">Infinity-pool</span><span class="mini-tag">Varmt</span><span class="opt-c-price">~900-1.300 kr/nat</span></div>
+      </div>
+    </div><div class="opt-c">
+      <div class="opt-c-photo"><div class="opt-c-photo-fallback th-tea"></div><div class="opt-c-photo-ico">&#127968;</div></div>
+      <div class="opt-c-info">
+        <div class="opt-c-top"><div class="opt-c-name">Riverbank Resort - Gampola</div><span class="opt-c-tag tag-warm">Kandy-naer</span></div>
+        <div class="opt-c-desc">4-stjernet følelse med infinity-pool, cabanas i tra, bjergudsigt. Ligger mellem Kandy og højlandet pa vej mod toget. Varmt, velprovet (413 anmeldelser), affordable.</div>
+        <div class="opt-c-meta"><span class="mini-tag">&#9733; 4.5 - 413</span><span class="mini-tag">Infinity-pool</span><span class="mini-tag">Varmt</span><span class="opt-c-price">~900-1.400 kr/nat</span></div>
+      </div>
+    </div><div class="opt-c">
+      <div class="opt-c-photo"><div class="opt-c-photo-fallback th-tea"></div><div class="opt-c-photo-ico">&#127813;</div></div>
+      <div class="opt-c-info">
+        <div class="opt-c-top"><div class="opt-c-name">Tea Heritage</div><span class="opt-c-tag tag-check">Te-stemning · tjek pris</span></div>
+        <div class="opt-c-desc">Historisk, nyrenoveret tebygning med pool og udsigt. Te-estate-følelse. Jeg kunne ikke bekrafte aktuel pris/rating - værd at tjekke pa Booking hvis I vil have den autentiske te-vibe med pool.</div>
+        <div class="opt-c-meta"><span class="mini-tag">Pool m. udsigt</span><span class="mini-tag">Te-estate</span><span class="mini-tag">Tjek pris</span></div>
+      </div>
+    </div></div><div class="freedom" style="margin-top:11px"><span class="fico">&#128161;</span><div><strong>Klima:</strong> de klassiske tagede teplantage-hoteller ligger i 1.500-2.000m og er <em>kølige</em> - poolvandet er friskt. Vil I have varme + behagelig pool, er Kitulgala/Gampola (lavere) det rette. Den tagede te-stemning far I fra <strong>toget</strong> d. 10/7. (Moksha blev fravalgt - 7.000 kr for 2 nætter, over budget.)</div></div></div>
+<div class="block"><div class="block-label"><span class="ico">&#9678;</span> Oplevelser</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-tea"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNFZjyzmMCGPla5pO5Trhl57IQq4cAsM9oUdVUQbUg69NHQm281cSY4SQu1jkC54mt6_dfyif2ATrIKAwF5j4PRv1IiHurxpyW0A-DmrRBG6Muqf5P-q8sa51HDeApirpnEGkYfqblQFI1DP9sUCEqo=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Kitulgala rafting & canyoning <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">3-3,5 timer - morgen kl. 7</div>
+        <div class="act-desc">Hvidvandsrafting pa Kelani-floden, klasse 2-3. Pakke m. canyoning + zipline. Turens adrenalin-dag - perfekt for Asta og Nana.</div><div class="book-flag">&#9888; NB: SKAL bookes - operator (Adventure LK) 1 dag for via Gayan. ~$30/pers.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-tea"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPsbz9arBsniQNo6bWRxPUQkXi_8HUXSP56pP_J7O0cazAuFCsoHrLWgRs58CDCQDZMc8oNafZ2qFy5qSNi04kCbZ5rVvBUzeO-WuaEE0m8aJOnii-SgrWVuMS9YT4clBBHhK9ZOMflNEgOGA=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Te-vandring & plantage <span class="act-flag flag-nice">Nice-to</span></div><div class="act-meta">2-4 timer - pa stedet</div>
+        <div class="act-desc">Guidet gåtur gennem teplantager, te-smagning. Aften kolig nok til bal, morgen med tage.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#10022;</span> Hidden gems - tilvalg med chauffør</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Kitul-tur (palme-sirup) <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">1-2 timer - lokal guide</div>
+        <div class="act-desc">Se hvordan Kitul-sirup høstes fra palmer - autentisk højdepunkt. Smag pa den friske sirup.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">"Bridge on the River Kwai"-stedet <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">1 time - i Kitulgala</div>
+        <div class="act-desc">Den berømte film blev optaget her ved Kelani-floden. Kort jungle-walk - sjov historie.</div>
+      </div>
+    </div></div>
+<div class="map-toggle" onclick="toggleMap(event, this)">&#128506; Vis kort</div><iframe class="stop-map" loading="lazy" data-src="https://www.google.com/maps?q=Kitulgala+Gampola+Kandy+Sri+Lanka&z=10&output=embed"></iframe>
+      </div></div>
+    </div>
+  </div>
+<div class="transport"><div class="transport-inner"><span class="transport-ico">&#128666;</span><span>~2t</span><div class="transport-bar"></div><span>Kitulgala -> Ambewela station</span></div></div>
+<div class="stop" id="ella_train">
+    <div class="stop-dot d-booked"></div>
+    <div class="stop-card ">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-tea"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOGET77Hv6FUtUnrNAoPk94kaxWcdOIDIfw4kJW-agwDRESuyvsgS-QxrI68lUzl8NiQR049B1gq71YzHVyf1lhvNV9BmOHD0pm4-Gq-LgdP-TNMJ15r9ye0io8UzGBqYDEqtxB9Gd1JaYIOXjQQChKqQ=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">10/7</div>
+            <div class="stop-title">Tog Ambewela -> Ella</div>
+            <div class="stop-sub">En af verdens smukkeste togstrækninger</div>
+          </div>
+          <div class="stop-head-right"><span class="pill p-booked">Booket</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-tea"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOGET77Hv6FUtUnrNAoPk94kaxWcdOIDIfw4kJW-agwDRESuyvsgS-QxrI68lUzl8NiQR049B1gq71YzHVyf1lhvNV9BmOHD0pm4-Gq-LgdP-TNMJ15r9ye0io8UzGBqYDEqtxB9Gd1JaYIOXjQQChKqQ=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#8962;</span> Overnatning</div><div class="acc booked">
+      <div class="acc-photo"><div class="acc-photo-fallback th-tea"></div><div class="acc-photo-ico">&#128642;</div></div>
+      <div class="acc-info">
+        <div class="acc-top"><div class="acc-name">Sri Lanka Railways - 1. klasse</div></div>
+        <div class="acc-detail">Afgang Ambewela kl. 15:00, ankomst Ella ~17:30. 2,5 timer gennem tage, te og bjerge. Sæder AFC-B-22 til B-25. Andret fra Nanuoya pga. cyklon.</div><div class="acc-ref">Ref BW5210598 - m-ticket SLR-15240775</div>
+      </div>
+    </div></div>
+<div class="freedom"><span class="fico">&#10022;</span><div>Et af de fa helt faste punkter - toget kører kl. 15:00. Gayan kører jer til Ambewela station og møder jer igen i Ella.</div></div>
+      </div></div>
+    </div>
+  </div>
+<div class="stop" id="ella">
+    <div class="stop-dot d-open"></div>
+    <div class="stop-card open-booking">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-mountain"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPTt5dVgJpTjarG1hID8iAdgA5iiWHF-BX0RVnKHRQCL8uA__1kgQu-BEJZcAzLSJJ_7K9RAk7QRPzKlqAgviFOdPiPOTLL1C50pt9v9OzXT650xRW5ayFONSJXSfTJYMNfU7CzTsM-hp6x=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">10-12/7</div>
+            <div class="stop-title">Ella</div>
+            <div class="stop-sub">Bjerge, broer og udsigter</div>
+          </div>
+          <div class="stop-head-right"><div class="stop-nights">2 nætter</div><span class="pill p-open">Mangler</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-mountain"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPTt5dVgJpTjarG1hID8iAdgA5iiWHF-BX0RVnKHRQCL8uA__1kgQu-BEJZcAzLSJJ_7K9RAk7QRPzKlqAgviFOdPiPOTLL1C50pt9v9OzXT650xRW5ayFONSJXSfTJYMNfU7CzTsM-hp6x=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#8962;</span> Overnatning</div><div class="acc">
+      <div class="acc-photo"><div class="acc-photo-fallback th-mountain"></div><div class="acc-photo-ico">&#127956;</div></div>
+      <div class="acc-info">
+        <div class="acc-top"><div class="acc-name">Forslag: hotel med udsigt + pool</div></div>
+        <div class="acc-detail">Ella by er lille - alt er kort tuk-tuk vak. 98 Acres Resort (pa teplantage, Nine Arch-udsigt, pool) er favoritten hvis budgettet rakker, ellers gode mellemklasse-hoteller med dalpanorama.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#9678;</span> Oplevelser</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-mountain"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZOGET77Hv6FUtUnrNAoPk94kaxWcdOIDIfw4kJW-agwDRESuyvsgS-QxrI68lUzl8NiQR049B1gq71YzHVyf1lhvNV9BmOHD0pm4-Gq-LgdP-TNMJ15r9ye0io8UzGBqYDEqtxB9Gd1JaYIOXjQQChKqQ=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Nine Arch Bridge <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">1-1,5 time - tjek togtider</div>
+        <div class="act-desc">Ikonisk kolonial jernbanebro bygget kun i sten. Magisk hvis et tog passerer. Ga tidligt for ro.</div><div class="book-flag">&#9888; NB: Gratis. Tjek togtider for at se et tog passere.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-mountain"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZPTt5dVgJpTjarG1hID8iAdgA5iiWHF-BX0RVnKHRQCL8uA__1kgQu-BEJZcAzLSJJ_7K9RAk7QRPzKlqAgviFOdPiPOTLL1C50pt9v9OzXT650xRW5ayFONSJXSfTJYMNfU7CzTsM-hp6x=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Little Adam's Peak <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">1-1,5 time - let sti</div>
+        <div class="act-desc">Let trappetrin-vandring, 10-15 min klatring, 360 panorama. Solopgang/solnedgang bedst.</div><div class="book-flag">&#9888; NB: Gratis. Ingen booking.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-mountain"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNsJzr2PHC98W1xGCL8kV6J2R3xifRuu8VbmCQHFqJhJOzbkp6OmKqwWU8aCCvsjbuvhebnIBxAsDOcSYvRoA5ghiJq125jm8Zn2HpHxsSlW3--srj_FIhenpFO-lbFlOMxK9i57fNpH2li_6s_oNlrug=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Ravana Falls <span class="act-flag flag-nice">Nice-to</span></div><div class="act-meta">20-30 min - 15 min</div>
+        <div class="act-desc">Vandfald direkte ved vejen, ingen vandring. God vandføring i juli. Pas pa glatte sten.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#10022;</span> Hidden gems - tilvalg med chauffør</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Ella Rock <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">4-5 timer - kravende</div>
+        <div class="act-desc">Spektakular vændretur gennem jungle og te. Ikke afmarket - brug GPS/guide.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Ravana Zipline & Cave <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">1-2 timer</div>
+        <div class="act-desc">Zipline-bane nar Nine Arch Bridge og en historisk grotte. Ekstra sjov for bornene.</div><div class="book-flag">&#9888; NB: Zipline bookes pa stedet eller 1 dag for.</div>
+      </div>
+    </div></div>
+<div class="map-toggle" onclick="toggleMap(event, this)">&#128506; Vis kort</div><iframe class="stop-map" loading="lazy" data-src="https://www.google.com/maps?q=Ella+Nine+Arch+Bridge+Little+Adams+Peak&z=13&output=embed"></iframe>
+      </div></div>
+    </div>
+  </div>
+<div class="transport"><div class="transport-inner"><span class="transport-ico">&#128666;</span><span>~2,5t</span><div class="transport-bar"></div><span>Ella -> Yala</span></div></div>
+<div class="stop" id="yala">
+    <div class="stop-dot d-booked"></div>
+    <div class="stop-card ">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-safari"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNXxhOmnsFc-G5hu2I0sNOKlhTk-NNZRNFUoJriBgqdERIS3-LGToAlRQhmidXoi6o0zh2zOH8dksr3qYtlZ3nFY2ZBjyYuHYWGKnwGhP-IBvfg7livXm2ZF4aVJ5lBdwmOS0L5sklZ5aAv1A=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">12-14/7</div>
+            <div class="stop-title">Yala - Mahoora Safari Camp</div>
+            <div class="stop-sub">All-inclusive teltcamp, privat jeep, leoparder</div>
+          </div>
+          <div class="stop-head-right"><div class="stop-nights">2 nætter</div><span class="pill p-booked">Booket</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-safari"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNXxhOmnsFc-G5hu2I0sNOKlhTk-NNZRNFUoJriBgqdERIS3-LGToAlRQhmidXoi6o0zh2zOH8dksr3qYtlZ3nFY2ZBjyYuHYWGKnwGhP-IBvfg7livXm2ZF4aVJ5lBdwmOS0L5sklZ5aAv1A=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#8962;</span> Overnatning</div><div class="acc booked">
+      <div class="acc-photo"><div class="acc-photo-fallback th-safari"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNXxhOmnsFc-G5hu2I0sNOKlhTk-NNZRNFUoJriBgqdERIS3-LGToAlRQhmidXoi6o0zh2zOH8dksr3qYtlZ3nFY2ZBjyYuHYWGKnwGhP-IBvfg7livXm2ZF4aVJ5lBdwmOS0L5sklZ5aAv1A=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="acc-info">
+        <div class="acc-top"><div class="acc-name">Mahoora Exclusive Safari Package</div><div class="acc-price">$1.599</div></div>
+        <div class="acc-detail">2 nætter - privat teltsuite - dedikeret guide + jeep - 2 safarier - alle måltider + drinks - bal, natvandring, foot-therapy. Check-in 12:30, ud 10:00.</div><div class="acc-ref">Ref GF4NRG - restbetaling $1.439 m. kort ved ankomst</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#9678;</span> Oplevelser</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-safari"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNXxhOmnsFc-G5hu2I0sNOKlhTk-NNZRNFUoJriBgqdERIS3-LGToAlRQhmidXoi6o0zh2zOH8dksr3qYtlZ3nFY2ZBjyYuHYWGKnwGhP-IBvfg7livXm2ZF4aVJ5lBdwmOS0L5sklZ5aAv1A=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Eftermiddag dag 1 + morgen dag 2 <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">jeep 14:30 / 5:30</div>
+        <div class="act-desc">Verdens højeste leopard-tæthed, plus elefanter, krokodiller, bjorne. Privat jeep = stille pletter.</div><div class="book-flag">&#9888; NB: Allerede inkluderet. MEN: mail safari-præference til fit5@ecoteam.lk inden 7/7.</div>
+      </div>
+    </div></div>
+<div class="freedom"><span class="fico">&#10022;</span><div>Helt booket og all-inclusive - I skal ikke planlagge noget. Bare huske mailen om safari-tider inden 7/7. Pak: vandresko, solhat, insektspray, varmt aftentøj. Ingen mad i teltet.</div></div>
+<div class="map-toggle" onclick="toggleMap(event, this)">&#128506; Vis kort</div><iframe class="stop-map" loading="lazy" data-src="https://www.google.com/maps?q=Yala+National+Park+Sri+Lanka&z=10&output=embed"></iframe>
+      </div></div>
+    </div>
+  </div>
+<div class="transport long"><div class="transport-inner"><span class="transport-ico">&#128666;</span><span>~3,5t</span><div class="transport-bar"></div><span>Yala -> Galle</span></div></div>
+<div class="stop" id="galle">
+    <div class="stop-dot d-open"></div>
+    <div class="stop-card open-booking">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-fort"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP8JQsl13Svh_nc_VIYzZMvjrElCweqJTPrlP91lHV-iht7kV8MG6Bie9VOyjWcbwxJeVXmspBArS50CKerzt_K92RZOOqU5j5Rxmays2j7FnqL4rK9Ndfl0hfQ9uADYiJvLGIVQeCenpmv2Y1ALgSL=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">14-15/7</div>
+            <div class="stop-title">Galle Fort</div>
+            <div class="stop-sub">Koloniale gader, solnedgang pa voldene</div>
+          </div>
+          <div class="stop-head-right"><div class="stop-nights">1 nat</div><span class="pill p-open">Mangler</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-fort"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP8JQsl13Svh_nc_VIYzZMvjrElCweqJTPrlP91lHV-iht7kV8MG6Bie9VOyjWcbwxJeVXmspBArS50CKerzt_K92RZOOqU5j5Rxmays2j7FnqL4rK9Ndfl0hfQ9uADYiJvLGIVQeCenpmv2Y1ALgSL=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#8962;</span> Overnatning</div><div class="acc">
+      <div class="acc-photo"><div class="acc-photo-fallback th-fort"></div><div class="acc-photo-ico">&#127984;</div></div>
+      <div class="acc-info">
+        <div class="acc-top"><div class="acc-name">Forslag: boutique inde i fortet</div></div>
+        <div class="acc-detail">Bo inde i murene (kun ~1 km2) sa alt er gåafstand. Masser af charmerende koloniale boutique-hoteller. Ankomst midt pa eftermiddagen fra Yala.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#9678;</span> Oplevelser</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-fort"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP8JQsl13Svh_nc_VIYzZMvjrElCweqJTPrlP91lHV-iht7kV8MG6Bie9VOyjWcbwxJeVXmspBArS50CKerzt_K92RZOOqU5j5Rxmays2j7FnqL4rK9Ndfl0hfQ9uADYiJvLGIVQeCenpmv2Y1ALgSL=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Voldene ved solnedgang <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">1,5-2 timer - gåafstand</div>
+        <div class="act-desc">UNESCO-fort fra 1500-tallet. Brostensgader, koloniale huse, kirker og templer. Ga om eftermiddagen op til solnedgang.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-fort"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZNIE3DOJETE_8Xs7zeUTBMc9Sb_N1ZXNdwsUo28FYdgOcBtiqCdJYRIZs39y6pMbB0Y0Mf-F0jKPYvWhmPjrk7oOZwSYXSbl47YmV1BXM9Je38K23ACGx1lXg2isp1D3tebAsbURyl4AdpwJw=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Galle Lighthouse <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">30-45 min</div>
+        <div class="act-desc">Et af landets ældste fyrtårne, indlejret i voldgangen. Cafeer og strand lige nedenfor.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#10022;</span> Hidden gems - tilvalg med chauffør</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-coast"></div></div>
+      <div class="act-body">
+        <div class="act-name">Unawatuna Beach <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">15 min</div>
+        <div class="act-desc">Fin strand, men med Maldiverne forude nok ikke nodvendig. Kun hvis I vil have endnu en stranddag.</div>
+      </div>
+    </div></div>
+<div class="freedom"><span class="fico">&#10022;</span><div>Kun 1 nat - men Galle Fort er bygget til det. En eftermiddag og aften fanger stemningen. Bare ga, kig og spis godt.</div></div>
+<div class="map-toggle" onclick="toggleMap(event, this)">&#128506; Vis kort</div><iframe class="stop-map" loading="lazy" data-src="https://www.google.com/maps?q=Galle+Fort+Sri+Lanka&z=15&output=embed"></iframe>
+      </div></div>
+    </div>
+  </div>
+<div class="transport"><div class="transport-inner"><span class="transport-ico">&#128666;</span><span>~2,5-3t</span><div class="transport-bar"></div><span>Galle -> Negombo</span></div></div>
+<div class="stop" id="negombo2">
+    <div class="stop-dot d-open"></div>
+    <div class="stop-card open-booking">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-sky"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP2RtM7Ap6QZuGwlQO1hhP131pSwda5aPx4Ss47eT5QH-ITkc7IYS2wiQveAEA7r5Hv9rZKsYu9dzbYRMzYQav_nSlrGx_xd_mj7ORiGcdEdraggyZbwA_zweXSv1z4w5AWCRte8aSgxwJP_A=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">15-16/7</div>
+            <div class="stop-title">Negombo (afrejse)</div>
+            <div class="stop-sub">Sidste nat i Sri Lanka, fiskemarked om morgenen</div>
+          </div>
+          <div class="stop-head-right"><div class="stop-nights">1 nat</div><span class="pill p-open">Mangler</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-sky"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP2RtM7Ap6QZuGwlQO1hhP131pSwda5aPx4Ss47eT5QH-ITkc7IYS2wiQveAEA7r5Hv9rZKsYu9dzbYRMzYQav_nSlrGx_xd_mj7ORiGcdEdraggyZbwA_zweXSv1z4w5AWCRte8aSgxwJP_A=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#8962;</span> Overnatning</div><div class="acc">
+      <div class="acc-photo"><div class="acc-photo-fallback th-sky"></div><div class="acc-photo-ico">&#127968;</div></div>
+      <div class="acc-info">
+        <div class="acc-top"><div class="acc-name">Forslag: hotel naer lufthavnen</div></div>
+        <div class="acc-detail">Bufferdag inden flyet. Vælg noget tæt pa CMB med pool, sa I kan slappe af om morgenen. Gerne god morgenmad.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#9678;</span> Oplevelser</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-sky"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZN0dsIsMW0PVcSN5yObl2P-j7uEaGpQ9ob-oyftvH7yf6foJ0qQc2YAl23B7dy-UqK6o0AeBvm2aBzeq1M_Lut0tQHFZ4AFdueVfMlL63dKDJk-w4DK6QCo6YLVhLManW6YqF8ZdMbWo6EBxg=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Negombo Fish Market <span class="act-flag flag-need">Need-to</span></div><div class="act-meta">45 min-1 time - kl. 7 - torsdag = abent</div>
+        <div class="act-desc">Et af landets mest autentiske markeder - hundredvis af fiskearter, fisketorring pa stranden. Hofligt nej til "guider".</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-sky"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP2RtM7Ap6QZuGwlQO1hhP131pSwda5aPx4Ss47eT5QH-ITkc7IYS2wiQveAEA7r5Hv9rZKsYu9dzbYRMzYQav_nSlrGx_xd_mj7ORiGcdEdraggyZbwA_zweXSv1z4w5AWCRte8aSgxwJP_A=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">St. Mary's Church <span class="act-flag flag-nice">Nice-to</span></div><div class="act-meta">20-30 min</div>
+        <div class="act-desc">Negombo kaldes "Little Rome". Imponerende loftsmaleri. Gaafstand fra fiskemarkedet.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#10022;</span> Hidden gems - tilvalg med chauffør</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Negombo Lagoon bådtur <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">2 timer</div>
+        <div class="act-desc">Stille bådtur gennem mangrove og fiskerlandsbyer. Captain Fernando (4.7) anbefales.</div><div class="book-flag">&#9888; NB: Bookes pa stedet eller 1 dag for.</div>
+      </div>
+    </div></div>
+<div class="freedom"><span class="fico">&#10022;</span><div>Fly til Male kl. 15:00, sa god tid til fiskemarkedet om morgenen. Gayan kører jer til CMB senest kl. 13:00 - her slutter Sri Lanka-delen.</div></div>
+      </div></div>
+    </div>
+  </div>
+</div>
+<div class="phase" style="margin-top:1rem"><div class="phase-label">Ren afslapning</div></div>
+<div class="timeline">
+<div class="transport"><div class="transport-inner"><span class="transport-ico">&#9992;</span><span>1t 30m</span><div class="transport-bar"></div><span>Colombo -> Male (FitsAir kl. 15:00)</span></div></div>
+<div class="stop" id="maldiverne">
+    <div class="stop-dot d-booked"></div>
+    <div class="stop-card ">
+      <div class="stop-head" onclick="toggleStop(this.closest('.stop-card'))">
+        <div class="stop-thumb-strip"><div class="stop-thumb-strip-fallback th-island"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP7rgPzLuiuozX-rxzb92pN_tXbNwBriGDVlTCvnz2UzE40HrYRXRALJDK8_KyHGGyDcdwappJRNdAggFm5NkhLWIuJENGPvw7lbQFPBP8DeUSuuRz5sChcPAjoWiepG6hytZ9xVobFJu3_Y9ozzMU8=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+        <div class="stop-head-body">
+          <div class="stop-head-main">
+            <div class="stop-date">16-21/7</div>
+            <div class="stop-title">Maldiverne - Gulhi</div>
+            <div class="stop-sub">Strand, snorkling, ingenting</div>
+          </div>
+          <div class="stop-head-right"><div class="stop-nights">5 nætter</div><span class="pill p-booked">Booket</span><svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></div>
+        </div>
+      </div>
+      <div class="stop-banner"><div class="stop-banner-fallback th-island"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP7rgPzLuiuozX-rxzb92pN_tXbNwBriGDVlTCvnz2UzE40HrYRXRALJDK8_KyHGGyDcdwappJRNdAggFm5NkhLWIuJENGPvw7lbQFPBP8DeUSuuRz5sChcPAjoWiepG6hytZ9xVobFJu3_Y9ozzMU8=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="stop-body"><div class="stop-body-inner">
+        <div class="block"><div class="block-label"><span class="ico">&#8962;</span> Overnatning</div><div class="acc booked">
+      <div class="acc-photo"><div class="acc-photo-fallback th-island"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP7rgPzLuiuozX-rxzb92pN_tXbNwBriGDVlTCvnz2UzE40HrYRXRALJDK8_KyHGGyDcdwappJRNdAggFm5NkhLWIuJENGPvw7lbQFPBP8DeUSuuRz5sChcPAjoWiepG6hytZ9xVobFJu3_Y9ozzMU8=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="acc-info">
+        <div class="acc-top"><div class="acc-name">Arrival Beach & Spa - Gulhi</div><div class="acc-price">&#9733; 4.6</div></div>
+        <div class="acc-detail">5 nætter - familieværelse - morgenmad. Lokal, rolig ø - rost for mad, personale og spa. Kontakt hotellet 48 timer for for bad/bus-transfer fra MLE.</div><div class="acc-ref">Ref 72070784101136</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#9678;</span> Oplevelser</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-island"></div><img src="https://lh3.googleusercontent.com/place-photos/AJRVUZP7rgPzLuiuozX-rxzb92pN_tXbNwBriGDVlTCvnz2UzE40HrYRXRALJDK8_KyHGGyDcdwappJRNdAggFm5NkhLWIuJENGPvw7lbQFPBP8DeUSuuRz5sChcPAjoWiepG6hytZ9xVobFJu3_Y9ozzMU8=s1600-w1600-h1000" alt="" loading="lazy" onload="this.classList.add('loaded')" onerror="this.remove()"></div>
+      <div class="act-body">
+        <div class="act-name">Snorkling fra stranden <span class="act-flag flag-need">Need-to</span></div>
+        <div class="act-desc">I har jeres eget udstyr (Cressi-masker). Spørg hotellet om de bedste rev tæt pa land.</div>
+      </div>
+    </div></div>
+<div class="block"><div class="block-label"><span class="ico">&#10022;</span> Hidden gems - tilvalg med chauffør</div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Sandbank- eller delfintur <span class="act-flag flag-gem">Hidden gem</span></div><div class="act-meta">1/2 dag</div>
+        <div class="act-desc">Hotellet arrangerer ture til ubeboede sandbanker eller delfinsafari ved solnedgang.</div><div class="book-flag">&#9888; NB: Bookes ved check-in eller dagen for.</div>
+      </div>
+    </div><div class="act">
+      <div class="act-thumb"><div class="act-thumb-fallback th-purple"></div></div>
+      <div class="act-body">
+        <div class="act-name">Lokal ø-vændretur <span class="act-flag flag-gem">Hidden gem</span></div>
+        <div class="act-desc">Gulhi er en beboet lokal ø - en gåtur giver et autentisk indblik.</div>
+      </div>
+    </div></div>
+<div class="freedom"><span class="fico">&#10022;</span><div>Efter 16 aktive dage er planen: ingen plan. Snorkling, pool, spa, sene morgenmadder. Maske en sandbank-tur - resten er bevidst tomt.</div></div>
+<div class="map-toggle" onclick="toggleMap(event, this)">&#128506; Vis kort</div><iframe class="stop-map" loading="lazy" data-src="https://www.google.com/maps?q=Gulhi+Island+Maldives&z=13&output=embed"></iframe>
+      </div></div>
+    </div>
+  </div>
+</div>
+
+<div class="summary-strip">
+  <div class="sum-card"><div class="sum-num" style="color:#196842">7 af 11</div><div class="sum-label">overnatninger booket - plus alle fly, toget og Gayan</div></div>
+  <div class="sum-card"><div class="sum-num" style="color:#8a5618">4 mangler</div><div class="sum-label">teplantage/Kitulgala, Ella, Galle Fort, Negombo afrejse</div></div>
+</div>
+
+<footer>
+  <p>Lavet til <em>familien</em> - Sri Lanka & Maldiverne, sommer 2026</p>
+  <p style="margin-top:.9rem;">Tryk pa et stop for at folde rejse, overnatning og oplevelser ud</p>
+  <p style="margin-top:.9rem; font-size:11px;">Sidst opdateret juni 2026</p>
+</footer>
+
+<script>
+function toggleStop(card){ card.classList.toggle('expanded'); }
+function toggleMap(e, btn){
+  e.stopPropagation();
+  var map = btn.nextElementSibling;
+  if(!map.src && map.dataset.src){ map.src = map.dataset.src; }
+  map.classList.toggle('show');
+  btn.innerHTML = map.classList.contains('show') ? '\u2715 Skjul kort' : '\uD83D\uDDFA Vis kort';
+}
+document.querySelectorAll('.nav a').forEach(function(link){
+  link.addEventListener('click', function(){
+    var id = this.getAttribute('href').slice(1);
+    var el = document.getElementById(id);
+    if(el){ var c = el.querySelector('.stop-card'); if(c && !c.classList.contains('expanded')) c.classList.add('expanded'); }
+  });
+});
+</script>
+</body>
+</html>
