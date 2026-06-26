@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri Lanka & Maldiverne — Pakkeliste</title>
+<style>
+  :root{
+    --bg:#eef2ee; --paper:#ffffff; --ink:#15302c; --muted:#5f746e;
+    --teal:#0b423b; --teal-soft:#13564c; --coral:#d98236; --coral-deep:#b9651c;
+    --line:#dde6df; --check:#1f8a63; --warn:#b9651c; --warnbg:#f7eadb;
+    --radius:14px; --shadow:0 1px 2px rgba(21,48,44,.06),0 8px 24px rgba(21,48,44,.07);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased; padding:28px 16px 80px;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  header{margin-bottom:22px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-deep);font-weight:700}
+  h1{font-size:clamp(26px,5vw,38px);margin:.15em 0 .1em;letter-spacing:-.02em;color:var(--teal)}
+  .sub{color:var(--muted);font-size:15px}
+  .meta{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:16px}
+  .count-pill{background:var(--teal);color:#fff;border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
+  .saved{font-size:12px;color:var(--check);opacity:0;transition:opacity .3s}
+  .saved.show{opacity:1}
+  .bar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:6px;width:100%}
+  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--check),#37b083);transition:width .35s ease}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  button{font-family:inherit;cursor:pointer;border:none}
+  .toggle{background:var(--paper);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:13.5px;font-weight:600}
+  .toggle[aria-pressed="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .toggle:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  section{margin-top:26px}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+  .sec-head h2{font-size:16px;margin:0;color:var(--teal-soft)}
+  .sec-head .n{font-size:12.5px;color:var(--muted);font-weight:600}
+  ul{list-style:none;margin:0;padding:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  li{display:flex;align-items:flex-start;gap:12px;padding:12px 14px;border-top:1px solid var(--line)}
+  li:first-child{border-top:none}
+  li.warn{background:var(--warnbg)}
+  .cb{appearance:none;-webkit-appearance:none;min-width:21px;height:21px;margin-top:1px;border:2px solid var(--teal-soft);border-radius:6px;background:#fff;cursor:pointer;display:grid;place-content:center;transition:background .15s,border-color .15s}
+  .cb:checked{background:var(--check);border-color:var(--check)}
+  .cb:checked::after{content:"";width:5px;height:10px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translateY(-1px)}
+  .cb:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  .body{flex:1;min-width:0}
+  .txt{font-size:15px}
+  .note{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+  li.done .txt{text-decoration:line-through;color:var(--muted)}
+  li.done .note{opacity:.6}
+  .del{background:none;color:var(--muted);font-size:20px;line-height:1;width:30px;height:30px;border-radius:8px;flex:none;display:grid;place-content:center}
+  .del:hover{background:#eef0ea;color:var(--coral-deep)}
+  .del:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  .add{display:flex;gap:8px;margin-top:10px}
+  .add input{flex:1;font-family:inherit;font-size:15px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+  .add input:focus-visible{outline:2px solid var(--coral);outline-offset:1px}
+  .add button{background:var(--coral);color:#fff;border-radius:10px;padding:0 18px;font-weight:700;font-size:14px}
+  .add button:hover{background:var(--coral-deep)}
+  footer{margin-top:34px;text-align:center;color:var(--muted);font-size:12.5px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Familien Andersen · 2 voksne + 2 børn · 22 dage</div>
+    <h1>Pakkeliste</h1>
+    <div class="sub">Sri Lanka (varmt/fugtigt) + Maldiverne (strand &amp; snorkel). Kryds af eller slet — det gemmes automatisk.</div>
+    <div class="meta">
+      <span class="count-pill" id="pill">0 / 0 pakket</span>
+      <span class="saved" id="saved">✓ gemt</span>
+    </div>
+    <div class="bar"><i id="fill"></i></div>
+    <div class="controls">
+      <button class="toggle" id="hideDone" aria-pressed="false">Skjul pakkede</button>
+      <button class="toggle" id="reset" aria-pressed="false">Nulstil alt</button>
+    </div>
+  </header>
+
+  <div id="list"></div>
+
+  <footer>Tilpasset rejsens bookinger og udstyr · justér frit</footer>
+</div>
+
+<script>
+const DATA = [
+  { sec:"📄 Dokumenter & penge", items:[
+    {id:"pass", t:"4 pas + kopier", n:"Susanne rejser på nyt pas 216518851. Gyldigt min. 6 mdr."},
+    {id:"eta", t:"4 ETA-udskrifter (print + offline)"},
+    {id:"bookings", t:"Alle bookingbekræftelser", n:"Fly, hoteller, tog, safari — print + gem offline på telefon."},
+    {id:"ins-card", t:"Forsikringskort + SOS International", n:"Alm. Brand. Alarmcentral +45 70 10 50 50."},
+    {id:"usd", t:"USD kontant til chaufføren", n:"~1.450–1.500 USD, blandede sedler."},
+    {id:"cards", t:"Kreditkort/Visa (åbnet for brug uden for EU)"},
+    {id:"vax-card", t:"Vaccinationskort"},
+  ]},
+  { sec:"👕 Tøj (let & åndbart)", items:[
+    {id:"tops", t:"T-shirts / lette toppe"},
+    {id:"shorts", t:"Shorts"},
+    {id:"long", t:"Lange bukser + lange ærmer", n:"Til templer og mod myg om aftenen."},
+    {id:"sarong", t:"Sarong / tørklæde pr. person", n:"Templer: dæk skuldre + knæ. Gulhi: cover-up uden for bikinistrand."},
+    {id:"swim", t:"Badetøj ×2 pr. person"},
+    {id:"rain", t:"Let regnjakke / poncho", n:"Sydvest-monsun kan give regn i Kitulgala/Ella/Galle."},
+    {id:"hat", t:"Solhat / kasket"},
+    {id:"shoes", t:"Flipflops + vandresko/sandaler", n:"Vandresko til Sigiriya, Pidurangala, Little Adam's Peak."},
+    {id:"underwear", t:"Undertøj + sokker"},
+    {id:"evening", t:"Let aftentøj"},
+  ]},
+  { sec:"🤿 Snorkel & strand", items:[
+    {id:"masks", t:"3 Cressi-masker (tandpasta-behandlet) + Susannes fullface", warn:true, tag:"behandl først"},
+    {id:"snorkels", t:"Snorkler + evt. svømmefødder"},
+    {id:"rash", t:"Rashguard / UV-trøje", n:"Mod sol og koral på reven (Pigeon Island, Gulhi)."},
+    {id:"watershoes", t:"Vandsko til rev/koral"},
+    {id:"camera", t:"DJI Osmo Action 5 Pro + flydegreb + ekstra kort/batteri"},
+    {id:"waterproof", t:"Vandtæt telefon-cover", n:"Vandskade på elektronik er IKKE dækket af forsikringen.", warn:true, tag:"vigtig"},
+    {id:"beachbag", t:"Strandtaske"},
+  ]},
+  { sec:"💊 Sundhed & toilettaske", items:[
+    {id:"deet", t:"DEET 50% (voksne/Asta) + 20–30% (Nana)"},
+    {id:"sun", t:"Solcreme høj faktor (reef-safe) + aftersun"},
+    {id:"seasick", t:"Søsygepiller", n:"Til hvalsafari ved Trincomalee."},
+    {id:"kit", t:"Rejseapotek", n:"Smertestillende, plaster, diarrémedicin, rehydrering, antihistamin."},
+    {id:"meds", t:"Personlig medicin"},
+    {id:"bite", t:"Myggestik-creme + håndsprit/vådservietter"},
+    {id:"toothpaste", t:"Ekstra tube tandpasta", n:"Også til at behandle snorkelmaskerne."},
+    {id:"toiletries", t:"Toiletartikler"},
+  ]},
+  { sec:"🔌 Elektronik", items:[
+    {id:"phones", t:"Telefoner + opladere"},
+    {id:"powerbank", t:"Powerbank", n:"I håndbagagen — ikke indtjekket."},
+    {id:"adapter", t:"Rejseadapter (UK-type D/G)", n:"Sri Lanka & Maldiverne bruger UK-stik."},
+    {id:"headphones", t:"Hovedtelefoner"},
+    {id:"reading", t:"Kindle / bøger til fly + togtur"},
+  ]},
+  { sec:"🎒 Diverse", items:[
+    {id:"daypack", t:"Dagrygsæk"},
+    {id:"bottles", t:"Genopfyldelige drikkedunke"},
+    {id:"towel", t:"Lyn-tørrende rejsehåndklæde"},
+    {id:"laundry", t:"Vasketøjspose + lidt vaskemiddel", n:"22 dage — vask undervejs."},
+    {id:"snacks", t:"Snacks til fly + lange køreture"},
+    {id:"kidsfun", t:"Kortspil / underholdning til børnene", n:"Til lange transporter med chaufføren."},
+    {id:"ziplock", t:"Zip-lock-poser", n:"Vandtæt opbevaring til telefon, pas, elektronik."},
+  ]},
+];
+
+const STORE_KEY = "srilanka_packing_v1";
+let state = { checked:{}, deleted:{}, custom:[], hideDone:false };
+const listEl = document.getElementById('list');
+const savedEl = document.getElementById('saved');
+let savedTimer;
+
+async function load(){ try{ const r=await window.storage.get(STORE_KEY); if(r&&r.value){ state=Object.assign(state,JSON.parse(r.value)); } }catch(e){} }
+async function save(){ try{ await window.storage.set(STORE_KEY,JSON.stringify(state)); flash(); }catch(e){} }
+function flash(){ savedEl.classList.add('show'); clearTimeout(savedTimer); savedTimer=setTimeout(()=>savedEl.classList.remove('show'),1100); }
+
+function allItems(){ const base=DATA.flatMap(s=>s.items.map(i=>i.id)); const cust=state.custom.map(c=>c.id); return [...base,...cust].filter(id=>!state.deleted[id]); }
+function updateProgress(){ const ids=allItems(); const done=ids.filter(id=>state.checked[id]).length; document.getElementById('pill').textContent=`${done} / ${ids.length} pakket`; document.getElementById('fill').style.width=ids.length?(done/ids.length*100)+'%':'0%'; }
+
+function makeLi(item,custom){
+  const li=document.createElement('li'); li.dataset.id=item.id;
+  if(item.warn && !state.checked[item.id]) li.classList.add('warn');
+  if(state.checked[item.id]) li.classList.add('done');
+  const cb=document.createElement('input'); cb.type='checkbox'; cb.className='cb'; cb.checked=!!state.checked[item.id]; cb.setAttribute('aria-label','Markér som pakket');
+  cb.addEventListener('change',()=>{ state.checked[item.id]=cb.checked; li.classList.toggle('done',cb.checked); if(cb.checked)li.classList.remove('warn'); else if(item.warn)li.classList.add('warn'); save(); updateProgress(); applyHide(); });
+  const body=document.createElement('div'); body.className='body';
+  const txt=document.createElement('span'); txt.className='txt'; txt.textContent=item.t;
+  if(item.tag){ const tg=document.createElement('span'); tg.className='tag'; tg.textContent=item.tag; tg.style.cssText='display:inline-block;font-size:11px;font-weight:700;text-transform:uppercase;color:#fff;background:var(--coral);border-radius:5px;padding:1px 6px;margin-left:6px'; txt.appendChild(tg); }
+  body.appendChild(txt);
+  if(item.n){ const note=document.createElement('span'); note.className='note'; note.textContent=item.n; body.appendChild(note); }
+  const del=document.createElement('button'); del.className='del'; del.innerHTML='&times;'; del.title='Slet linje'; del.setAttribute('aria-label','Slet linje');
+  del.addEventListener('click',()=>{ state.deleted[item.id]=true; if(custom){ state.custom=state.custom.filter(c=>c.id!==item.id); } li.style.transition='opacity .18s,height .18s,padding .18s'; li.style.height=li.offsetHeight+'px'; li.offsetHeight; li.style.opacity='0'; li.style.height='0'; li.style.paddingTop='0'; li.style.paddingBottom='0'; setTimeout(render,180); save(); });
+  li.append(cb,body,del); return li;
+}
+
+function render(){
+  listEl.innerHTML='';
+  for(const sec of DATA){
+    const live=sec.items.filter(i=>!state.deleted[i.id]); if(!live.length) continue;
+    const wrap=document.createElement('section'); const head=document.createElement('div'); head.className='sec-head';
+    const h2=document.createElement('h2'); h2.textContent=sec.sec; const n=document.createElement('span'); n.className='n';
+    n.textContent=`${live.filter(i=>state.checked[i.id]).length}/${live.length}`; head.append(h2,n);
+    const ul=document.createElement('ul'); live.forEach(i=>ul.appendChild(makeLi(i,false))); wrap.append(head,ul); listEl.appendChild(wrap);
+  }
+  const liveCustom=state.custom.filter(c=>!state.deleted[c.id]);
+  const cwrap=document.createElement('section'); const chead=document.createElement('div'); chead.className='sec-head';
+  const ch2=document.createElement('h2'); ch2.textContent='➕ Mine egne ting'; const cn=document.createElement('span'); cn.className='n';
+  cn.textContent=`${liveCustom.filter(c=>state.checked[c.id]).length}/${liveCustom.length}`; chead.append(ch2,cn); cwrap.appendChild(chead);
+  if(liveCustom.length){ const cul=document.createElement('ul'); liveCustom.forEach(c=>cul.appendChild(makeLi(c,true))); cwrap.appendChild(cul); }
+  const add=document.createElement('div'); add.className='add';
+  const inp=document.createElement('input'); inp.placeholder='Tilføj ting og tryk Enter…'; inp.setAttribute('aria-label','Tilføj egen ting');
+  const btn=document.createElement('button'); btn.textContent='Tilføj';
+  function addItem(){ const v=inp.value.trim(); if(!v)return; const id='c'+Date.now(); state.custom.push({id,t:v}); inp.value=''; save(); render(); }
+  btn.addEventListener('click',addItem); inp.addEventListener('keydown',e=>{ if(e.key==='Enter')addItem(); });
+  add.append(inp,btn); cwrap.appendChild(add); listEl.appendChild(cwrap);
+  updateProgress(); applyHide();
+}
+function applyHide(){ document.querySelectorAll('#list li').forEach(li=>{ const id=li.dataset.id; li.style.display=(state.hideDone&&state.checked[id])?'none':''; }); }
+
+document.getElementById('hideDone').addEventListener('click',function(){ state.hideDone=!state.hideDone; this.setAttribute('aria-pressed',state.hideDone); this.textContent=state.hideDone?'Vis alle':'Skjul pakkede'; save(); applyHide(); });
+document.getElementById('reset').addEventListener('click',function(){ if(!confirm('Nulstil alle afkrydsninger og gendan slettede linjer? (Egne ting bevares)'))return; state.checked={}; state.deleted={}; save(); render(); });
+
+(async()=>{ await load(); document.getElementById('hideDone').setAttribute('aria-pressed',state.hideDone); document.getElementById('hideDone').textContent=state.hideDone?'Vis alle':'Skjul pakkede'; render(); })();
+</script>
+</body>
+</html>
