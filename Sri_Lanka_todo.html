@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sri Lanka & Maldiverne — To-do</title>
+<style>
+  :root{
+    --bg:#f4efe4; --paper:#fffdf8; --ink:#1c2b2a; --muted:#6c7a76;
+    --teal:#0e3b3a; --teal-soft:#15514f; --coral:#e06a39; --coral-deep:#c4521f;
+    --line:#e4ddcd; --check:#1f7a5a; --warn:#c4521f; --warnbg:#fbe8dd;
+    --radius:14px; --shadow:0 1px 2px rgba(28,43,42,.06),0 8px 24px rgba(28,43,42,.06);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    background:var(--bg); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    line-height:1.5; -webkit-font-smoothing:antialiased; padding:28px 16px 80px;
+  }
+  .wrap{max-width:760px;margin:0 auto}
+  header{margin-bottom:22px}
+  .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--coral-deep);font-weight:700}
+  h1{font-size:clamp(26px,5vw,38px);margin:.15em 0 .1em;letter-spacing:-.02em;color:var(--teal)}
+  .sub{color:var(--muted);font-size:15px}
+  .meta{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin-top:16px}
+  .count-pill{background:var(--teal);color:#fff;border-radius:999px;padding:6px 14px;font-size:14px;font-weight:600}
+  .days{font-size:14px;color:var(--muted)}
+  .days b{color:var(--coral-deep)}
+  .bar{height:8px;background:var(--line);border-radius:999px;overflow:hidden;margin-top:6px;width:100%}
+  .bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--check),#2fa178);transition:width .35s ease}
+  .controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
+  button{font-family:inherit;cursor:pointer;border:none}
+  .toggle{background:var(--paper);border:1px solid var(--line);color:var(--ink);border-radius:999px;padding:7px 14px;font-size:13.5px;font-weight:600;transition:background .15s,border-color .15s}
+  .toggle[aria-pressed="true"]{background:var(--teal);color:#fff;border-color:var(--teal)}
+  .toggle:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  section{margin-top:26px}
+  .sec-head{display:flex;align-items:baseline;gap:10px;margin-bottom:10px}
+  .sec-head h2{font-size:16px;margin:0;color:var(--teal-soft);letter-spacing:-.01em}
+  .sec-head .n{font-size:12.5px;color:var(--muted);font-weight:600}
+  ul{list-style:none;margin:0;padding:0;background:var(--paper);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+  li{display:flex;align-items:flex-start;gap:12px;padding:13px 14px;border-top:1px solid var(--line);position:relative}
+  li:first-child{border-top:none}
+  li.warn{background:var(--warnbg)}
+  .cb{appearance:none;-webkit-appearance:none;min-width:21px;height:21px;margin-top:1px;border:2px solid var(--teal-soft);border-radius:6px;background:#fff;cursor:pointer;display:grid;place-content:center;transition:background .15s,border-color .15s}
+  .cb:checked{background:var(--check);border-color:var(--check)}
+  .cb:checked::after{content:"";width:5px;height:10px;border:solid #fff;border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translateY(-1px)}
+  .cb:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  .body{flex:1;min-width:0}
+  .txt{font-size:15px}
+  .note{display:block;font-size:13px;color:var(--muted);margin-top:2px}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:#fff;background:var(--coral);border-radius:5px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+  li.done .txt{text-decoration:line-through;color:var(--muted)}
+  li.done .note{opacity:.6}
+  .del{background:none;color:var(--muted);font-size:20px;line-height:1;width:30px;height:30px;border-radius:8px;flex:none;display:grid;place-content:center;transition:background .15s,color .15s}
+  .del:hover{background:#f1e3da;color:var(--coral-deep)}
+  .del:focus-visible{outline:2px solid var(--coral);outline-offset:2px}
+  .add{display:flex;gap:8px;margin-top:10px}
+  .add input{flex:1;font-family:inherit;font-size:15px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink)}
+  .add input:focus-visible{outline:2px solid var(--coral);outline-offset:1px}
+  .add button{background:var(--coral);color:#fff;border-radius:10px;padding:0 18px;font-weight:700;font-size:14px}
+  .add button:hover{background:var(--coral-deep)}
+  .saved{font-size:12px;color:var(--check);opacity:0;transition:opacity .3s;margin-left:6px}
+  .saved.show{opacity:1}
+  footer{margin-top:34px;text-align:center;color:var(--muted);font-size:12.5px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Familien Andersen · 29. juni – 22. juli 2026</div>
+    <h1>To-do før afrejse</h1>
+    <div class="sub">Sri Lanka &amp; Maldiverne. Kryds af eller slet en linje — det gemmes automatisk.</div>
+    <div class="meta">
+      <span class="count-pill" id="pill">0 / 0 klaret</span>
+      <span class="days" id="days"></span>
+      <span class="saved" id="saved">✓ gemt</span>
+    </div>
+    <div class="bar"><i id="fill"></i></div>
+    <div class="controls">
+      <button class="toggle" id="hideDone" aria-pressed="false">Skjul afkrydsede</button>
+      <button class="toggle" id="reset" aria-pressed="false">Nulstil alt</button>
+    </div>
+  </header>
+
+  <div id="list"></div>
+
+  <footer>Status pr. handover 23. juni 2026 · referencer fra projektfilerne</footer>
+</div>
+
+<script>
+const DATA = [
+  { sec:"🔴 Book nu — de 4 manglende overnatninger", items:[
+    {id:"book-kitulgala", t:"Book Kitulgala/teplantage-området 8–10/7 (2 nætter)", n:"Varmt, lavtliggende, pool. Se mine 3 bud nedenfor.", warn:false},
+    {id:"book-ella", t:"Book Ella 10–12/7 (2 nætter)", n:"Udsigt + gerne pool. Tog ankommer ~kl. 15:00 d. 10/7."},
+    {id:"book-galle", t:"Book Galle Fort 14–15/7 (1 nat)", n:"Boutique INDE i fortet."},
+    {id:"book-negombo", t:"Book Negombo-afrejse 15–16/7 (1 nat)", n:"Nær CMB, pool, familieværelse. Fly til Malé 16/7 kl. 15:00."},
+  ]},
+  { sec:"✉️ Mails & bekræftelser", items:[
+    {id:"mail-mahoora", t:"Send Mahoora-mail til fit5@ecoteam.lk", n:"INDEN 7/7. Eftermiddag 12/7 + morgen 13/7 + forudbestil frokost 13/7 + madpræferencer. Udkast er klar.", warn:true, tag:"7/7"},
+    {id:"driver-price", t:"Bekræft chauffør-totalpris med Gayan", n:"+94 77 989 3805 (via Anton, My Driver Sri Lanka). Verificér aftalt beløb. Kun kontant USD."},
+    {id:"driver-confirm", t:"Send chauffør bookingbekræftelse", n:"Navn, ankomst 30/6 kl. 15:00 (AI2276), flydetaljer, hotelliste + navneskilt i ankomsthal. Afventer de 4 hoteller."},
+    {id:"maldives-transfer", t:"Kontakt Maldiverne-hotel ~14/7 (48 t før) for transfer", n:"Arrival Beach & Spa, Gulhi. Ref 72070784101136. Båd/bus fra Malé."},
+  ]},
+  { sec:"✈️ Fly & dokumenter", items:[
+    {id:"fitsair-pass", t:"Opdatér FitsAir med Susannes nye pasnr 216518851", n:"Ref ZCAEEB. Bookingen står med GAMLE pasnr 209477101 — bekræftet i PDF'en. Skal rettes før check-in.", warn:true, tag:"vigtig"},
+    {id:"check-other-pass", t:"Tjek Air India (9RC7C2) + IndiGo (XEYKYX) for Susannes pasnr", n:"Sikr at de står med det nye pas 216518851."},
+    {id:"print-eta", t:"Download/print alle 4 ETA-godkendelser", n:"Susanne ...621, Søren ...622, Asta ...623, Nana ...624. Gem også offline på telefon."},
+    {id:"verify-train", t:"Verificér togbillet BW5210598", n:"Afgangsstation/-tid: kilder uenige (Nanuoya 12:30 vs Ambewela 15:00). Tjek inden 10/7."},
+  ]},
+  { sec:"💳 Penge", items:[
+    {id:"usd-cash", t:"Hæv ~1.450–1.500 USD kontant", n:"Forex Bank, Københavns Hovedbanegård. Bland 100/50/20-sedler. Tjek dagligt hævegrænse først."},
+    {id:"bank-notify", t:"Sig til banken: kort skal virke uden for EU", n:"Til ATM-hævning af LKR på stedet."},
+    {id:"maldives-rest", t:"Maldiverne: rest 1.517 kr. betales på stedet", n:"Kort sandsynligvis OK — medbring kontant som backup."},
+  ]},
+  { sec:"🛡️ Forsikring", items:[
+    {id:"ins-travel", t:"Verificér rejseforsikring aktiv for 2026", n:"Alm. Brand RP 1802, police 207 496 723. Hovedforfald 1. marts."},
+    {id:"ins-goods", t:"Verificér rejsegodsforsikring aktiv for 2026", n:"Alm. Brand FP 1409, police 207 496 693."},
+  ]},
+  { sec:"🩹 Sundhed", items:[
+    {id:"deet", t:"Køb DEET i Danmark", n:"Care Plus DEET 50% (voksne/Asta), 20–30% (Nana). Spraydåse i indtjekket, pumpe/lotion i håndbagage."},
+    {id:"seasick", t:"Køb søsygepiller til hvalsafari"},
+  ]},
+  { sec:"🤿 Udstyr", items:[
+    {id:"masks", t:"Tandpasta-behandl de 3 traditionelle Cressi-masker", n:"Indvendigt på glasset før første brug — mod dug."},
+    {id:"diveinn-return", t:"diveINN: returnér dobbeltordre 70062178", n:"Behold ordre 69833740. Kontakt support, bed om dækket returfragt (dobbeltordre)."},
+    {id:"camera", t:"Beslut undervandskamera", n:"DJI Osmo Action 5 Pro (~2.643 kr, CompuMail) + flydegreb (det vigtige tilbehør)."},
+  ]},
+  { sec:"📍 Bookes under turen", items:[
+    {id:"whale", t:"Hvalsafari Trincomalee — book 3–4/7", n:"Via Gayan eller GetYourGuide. Morgen ~kl. 6:00. Susannes drøm."},
+    {id:"rafting", t:"Kitulgala rafting — book aften/morgen 9/7", n:"Via Gayan eller Adventure LK. Grade 2–3, dækket af forsikringen."},
+  ]},
+];
+
+const STORE_KEY = "srilanka_todo_v1";
+let state = { checked:{}, deleted:{}, custom:[], hideDone:false };
+
+const listEl = document.getElementById('list');
+const savedEl = document.getElementById('saved');
+let savedTimer;
+
+async function load(){
+  try{ const r = await window.storage.get(STORE_KEY); if(r&&r.value){ state = Object.assign(state, JSON.parse(r.value)); } }catch(e){}
+}
+async function save(){
+  try{ await window.storage.set(STORE_KEY, JSON.stringify(state)); flashSaved(); }catch(e){}
+}
+function flashSaved(){ savedEl.classList.add('show'); clearTimeout(savedTimer); savedTimer=setTimeout(()=>savedEl.classList.remove('show'),1100); }
+
+function allItems(){
+  const base = DATA.flatMap(s=>s.items.map(i=>i.id));
+  const cust = state.custom.map(c=>c.id);
+  return [...base,...cust].filter(id=>!state.deleted[id]);
+}
+function updateProgress(){
+  const ids = allItems();
+  const done = ids.filter(id=>state.checked[id]).length;
+  document.getElementById('pill').textContent = `${done} / ${ids.length} klaret`;
+  document.getElementById('fill').style.width = ids.length? (done/ids.length*100)+'%' : '0%';
+}
+function daysLeft(){
+  const dep = new Date(2026,5,29); const now = new Date();
+  const d = Math.ceil((dep-now)/(1000*60*60*24));
+  document.getElementById('days').innerHTML = d>0? `<b>${d} dage</b> til afrejse` : 'God tur! ✈️';
+}
+
+function makeLi(item, sectionCustom){
+  const li = document.createElement('li');
+  li.dataset.id = item.id;
+  if(item.warn && !state.checked[item.id]) li.classList.add('warn');
+  if(state.checked[item.id]) li.classList.add('done');
+
+  const cb = document.createElement('input');
+  cb.type='checkbox'; cb.className='cb'; cb.checked=!!state.checked[item.id];
+  cb.setAttribute('aria-label','Markér som klaret');
+  cb.addEventListener('change',()=>{
+    state.checked[item.id]=cb.checked;
+    li.classList.toggle('done',cb.checked);
+    if(cb.checked) li.classList.remove('warn'); else if(item.warn) li.classList.add('warn');
+    save(); updateProgress(); applyHide();
+  });
+
+  const body=document.createElement('div'); body.className='body';
+  const txt=document.createElement('span'); txt.className='txt'; txt.textContent=item.t;
+  if(item.tag){ const tg=document.createElement('span'); tg.className='tag'; tg.textContent=item.tag; txt.appendChild(tg); }
+  body.appendChild(txt);
+  if(item.n){ const note=document.createElement('span'); note.className='note'; note.textContent=item.n; body.appendChild(note); }
+
+  const del=document.createElement('button'); del.className='del'; del.innerHTML='&times;';
+  del.title='Slet linje'; del.setAttribute('aria-label','Slet linje');
+  del.addEventListener('click',()=>{
+    state.deleted[item.id]=true;
+    if(sectionCustom){ state.custom=state.custom.filter(c=>c.id!==item.id); }
+    li.style.height=li.offsetHeight+'px'; li.offsetHeight;
+    li.style.transition='opacity .18s,height .18s,padding .18s,margin .18s';
+    li.style.opacity='0'; li.style.height='0'; li.style.paddingTop='0'; li.style.paddingBottom='0';
+    setTimeout(()=>{ render(); },180);
+    save();
+  });
+
+  li.append(cb,body,del);
+  return li;
+}
+
+function render(){
+  listEl.innerHTML='';
+  for(const sec of DATA){
+    const live = sec.items.filter(i=>!state.deleted[i.id]);
+    if(!live.length) continue;
+    const wrap=document.createElement('section');
+    const head=document.createElement('div'); head.className='sec-head';
+    const h2=document.createElement('h2'); h2.textContent=sec.sec;
+    const n=document.createElement('span'); n.className='n';
+    const done=live.filter(i=>state.checked[i.id]).length;
+    n.textContent=`${done}/${live.length}`;
+    head.append(h2,n);
+    const ul=document.createElement('ul');
+    live.forEach(i=>ul.appendChild(makeLi(i,false)));
+    wrap.append(head,ul);
+    listEl.appendChild(wrap);
+  }
+  // Custom section
+  const liveCustom = state.custom.filter(c=>!state.deleted[c.id]);
+  const cwrap=document.createElement('section');
+  const chead=document.createElement('div'); chead.className='sec-head';
+  const ch2=document.createElement('h2'); ch2.textContent='➕ Mine egne punkter';
+  const cn=document.createElement('span'); cn.className='n';
+  cn.textContent=`${liveCustom.filter(c=>state.checked[c.id]).length}/${liveCustom.length}`;
+  chead.append(ch2,cn);
+  cwrap.appendChild(chead);
+  if(liveCustom.length){ const cul=document.createElement('ul'); liveCustom.forEach(c=>cul.appendChild(makeLi(c,true))); cwrap.appendChild(cul); }
+  const add=document.createElement('div'); add.className='add';
+  const inp=document.createElement('input'); inp.placeholder='Tilføj eget punkt og tryk Enter…'; inp.setAttribute('aria-label','Tilføj eget punkt');
+  const btn=document.createElement('button'); btn.textContent='Tilføj';
+  function addItem(){ const v=inp.value.trim(); if(!v) return; const id='c'+Date.now(); state.custom.push({id,t:v}); inp.value=''; save(); render(); }
+  btn.addEventListener('click',addItem);
+  inp.addEventListener('keydown',e=>{ if(e.key==='Enter') addItem(); });
+  add.append(inp,btn); cwrap.appendChild(add);
+  listEl.appendChild(cwrap);
+
+  updateProgress(); applyHide();
+}
+
+function applyHide(){
+  document.querySelectorAll('#list li').forEach(li=>{
+    const id=li.dataset.id;
+    li.style.display = (state.hideDone && state.checked[id]) ? 'none':'';
+  });
+}
+
+document.getElementById('hideDone').addEventListener('click',function(){
+  state.hideDone=!state.hideDone; this.setAttribute('aria-pressed',state.hideDone);
+  this.textContent=state.hideDone?'Vis alle':'Skjul afkrydsede'; save(); applyHide();
+});
+document.getElementById('reset').addEventListener('click',function(){
+  if(!confirm('Nulstil alle afkrydsninger og gendan slettede linjer? (Egne punkter bevares)')) return;
+  state.checked={}; state.deleted={}; save(); render();
+});
+
+(async()=>{ await load();
+  document.getElementById('hideDone').setAttribute('aria-pressed',state.hideDone);
+  document.getElementById('hideDone').textContent=state.hideDone?'Vis alle':'Skjul afkrydsede';
+  daysLeft(); render();
+})();
+</script>
+</body>
+</html>
